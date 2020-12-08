@@ -1,0 +1,22 @@
+#配置服务器信息
+server:
+  servlet:
+    context-path: /crm
+    encoding:
+      charset: UTF-8
+
+#springmvc的视图解析器,spring的数据源
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@152.136.146.167:1521:orcl
+    username: CRM
+    password: CRM
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  config-location: classpath:mybatis-config.xml
+
