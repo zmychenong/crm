@@ -2,8 +2,7 @@ package com.sc.spring.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sc.spring.entity.SysUser;
-import com.sc.spring.entity.SysUserExample;
+
 import com.sc.spring.entity.SysUseraccount;
 import com.sc.spring.entity.SysUseraccountExample;
 import com.sc.spring.mapper.SysUseraccountMapper;
