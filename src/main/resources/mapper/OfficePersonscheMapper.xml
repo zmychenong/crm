@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.OfficePersonscheMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.OfficePersonsche">
+    <id column="SE_ID" jdbcType="DECIMAL" property="seId" />
+    <result column="ARRANGEMENT_CATEGROY" jdbcType="VARCHAR" property="arrangementCategroy" />
+    <result column="ARRANGE_THE_THEME" jdbcType="VARCHAR" property="arrangeTheTheme" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="FILL_IN_THE_PERSONNEL_NUMBER" jdbcType="DECIMAL" property="fillInThePersonnelNumber" />
+    <result column="ARRANGEMENT_DESCRIPTION" jdbcType="VARCHAR" property="arrangementDescription" />
+    <result column="CPMPANY_NUMBER" jdbcType="DECIMAL" property="cpmpanyNumber" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SE_ID, ARRANGEMENT_CATEGROY, ARRANGE_THE_THEME, START_DATE, START_TIME, FILL_IN_THE_PERSONNEL_NUMBER, 
+    ARRANGEMENT_DESCRIPTION, CPMPANY_NUMBER, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.OfficePersonscheExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from OFFICE_PERSONSCHE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_PERSONSCHE
+    where SE_ID = #{seId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from OFFICE_PERSONSCHE
+    where SE_ID = #{seId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.OfficePersonscheExample">
+    delete from OFFICE_PERSONSCHE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="SE_ID" keyProperty="seId" parameterType="com.sc.spring.entity.OfficePersonsche" useGeneratedKeys="true">
+    insert into OFFICE_PERSONSCHE (ARRANGEMENT_CATEGROY, ARRANGE_THE_THEME, 
+      START_DATE, START_TIME, FILL_IN_THE_PERSONNEL_NUMBER, 
+      ARRANGEMENT_DESCRIPTION, CPMPANY_NUMBER, 
+      LASTTIME)
+    values (#{arrangementCategroy,jdbcType=VARCHAR}, #{arrangeTheTheme,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{fillInThePersonnelNumber,jdbcType=DECIMAL}, 
+      #{arrangementDescription,jdbcType=VARCHAR}, #{cpmpanyNumber,jdbcType=DECIMAL}, 
+      #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="SE_ID" keyProperty="seId" parameterType="com.sc.spring.entity.OfficePersonsche" useGeneratedKeys="true">
+    insert into OFFICE_PERSONSCHE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="arrangementCategroy != null">
+        ARRANGEMENT_CATEGROY,
+      </if>
+      <if test="arrangeTheTheme != null">
+        ARRANGE_THE_THEME,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="fillInThePersonnelNumber != null">
+        FILL_IN_THE_PERSONNEL_NUMBER,
+      </if>
+      <if test="arrangementDescription != null">
+        ARRANGEMENT_DESCRIPTION,
+      </if>
+      <if test="cpmpanyNumber != null">
+        CPMPANY_NUMBER,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="arrangementCategroy != null">
+        #{arrangementCategroy,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangeTheTheme != null">
+        #{arrangeTheTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fillInThePersonnelNumber != null">
+        #{fillInThePersonnelNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="arrangementDescription != null">
+        #{arrangementDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="cpmpanyNumber != null">
+        #{cpmpanyNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.OfficePersonscheExample" resultType="java.lang.Long">
+    select count(*) from OFFICE_PERSONSCHE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update OFFICE_PERSONSCHE
+    <set>
+      <if test="record.seId != null">
+        SE_ID = #{record.seId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.arrangementCategroy != null">
+        ARRANGEMENT_CATEGROY = #{record.arrangementCategroy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrangeTheTheme != null">
+        ARRANGE_THE_THEME = #{record.arrangeTheTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null">
+        START_DATE = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fillInThePersonnelNumber != null">
+        FILL_IN_THE_PERSONNEL_NUMBER = #{record.fillInThePersonnelNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.arrangementDescription != null">
+        ARRANGEMENT_DESCRIPTION = #{record.arrangementDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpmpanyNumber != null">
+        CPMPANY_NUMBER = #{record.cpmpanyNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update OFFICE_PERSONSCHE
+    set SE_ID = #{record.seId,jdbcType=DECIMAL},
+      ARRANGEMENT_CATEGROY = #{record.arrangementCategroy,jdbcType=VARCHAR},
+      ARRANGE_THE_THEME = #{record.arrangeTheTheme,jdbcType=VARCHAR},
+      START_DATE = #{record.startDate,jdbcType=TIMESTAMP},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      FILL_IN_THE_PERSONNEL_NUMBER = #{record.fillInThePersonnelNumber,jdbcType=DECIMAL},
+      ARRANGEMENT_DESCRIPTION = #{record.arrangementDescription,jdbcType=VARCHAR},
+      CPMPANY_NUMBER = #{record.cpmpanyNumber,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.OfficePersonsche">
+    update OFFICE_PERSONSCHE
+    <set>
+      <if test="arrangementCategroy != null">
+        ARRANGEMENT_CATEGROY = #{arrangementCategroy,jdbcType=VARCHAR},
+      </if>
+      <if test="arrangeTheTheme != null">
+        ARRANGE_THE_THEME = #{arrangeTheTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fillInThePersonnelNumber != null">
+        FILL_IN_THE_PERSONNEL_NUMBER = #{fillInThePersonnelNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="arrangementDescription != null">
+        ARRANGEMENT_DESCRIPTION = #{arrangementDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="cpmpanyNumber != null">
+        CPMPANY_NUMBER = #{cpmpanyNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SE_ID = #{seId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.OfficePersonsche">
+    update OFFICE_PERSONSCHE
+    set ARRANGEMENT_CATEGROY = #{arrangementCategroy,jdbcType=VARCHAR},
+      ARRANGE_THE_THEME = #{arrangeTheTheme,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      FILL_IN_THE_PERSONNEL_NUMBER = #{fillInThePersonnelNumber,jdbcType=DECIMAL},
+      ARRANGEMENT_DESCRIPTION = #{arrangementDescription,jdbcType=VARCHAR},
+      CPMPANY_NUMBER = #{cpmpanyNumber,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where SE_ID = #{seId,jdbcType=DECIMAL}
+  </update>
+</mapper>

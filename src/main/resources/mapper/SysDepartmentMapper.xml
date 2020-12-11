@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SysDepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SysDepartment">
+    <id column="DEPART_ID" jdbcType="DECIMAL" property="departId" />
+    <result column="DEPARTMENT_NAME" jdbcType="VARCHAR" property="departmentName" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="COMPANY_ID" jdbcType="DECIMAL" property="companyId" />
+    <result column="LASTCHANGE_TIME" jdbcType="TIMESTAMP" property="lastchangeTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DEPART_ID, DEPARTMENT_NAME, REMARKS, COMPANY_ID, LASTCHANGE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SysDepartmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_DEPARTMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_DEPARTMENT
+    where DEPART_ID = #{departId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from SYS_DEPARTMENT
+    where DEPART_ID = #{departId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SysDepartmentExample">
+    delete from SYS_DEPARTMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="DEPART_ID" keyProperty="departId" parameterType="com.sc.spring.entity.SysDepartment" useGeneratedKeys="true">
+    insert into SYS_DEPARTMENT (DEPARTMENT_NAME, REMARKS, COMPANY_ID, 
+      LASTCHANGE_TIME)
+    values (#{departmentName,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{companyId,jdbcType=DECIMAL}, 
+      #{lastchangeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="DEPART_ID" keyProperty="departId" parameterType="com.sc.spring.entity.SysDepartment" useGeneratedKeys="true">
+    insert into SYS_DEPARTMENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentName != null">
+        DEPARTMENT_NAME,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID,
+      </if>
+      <if test="lastchangeTime != null">
+        LASTCHANGE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastchangeTime != null">
+        #{lastchangeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SysDepartmentExample" resultType="java.lang.Long">
+    select count(*) from SYS_DEPARTMENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYS_DEPARTMENT
+    <set>
+      <if test="record.departId != null">
+        DEPART_ID = #{record.departId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.departmentName != null">
+        DEPARTMENT_NAME = #{record.departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null">
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastchangeTime != null">
+        LASTCHANGE_TIME = #{record.lastchangeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYS_DEPARTMENT
+    set DEPART_ID = #{record.departId,jdbcType=DECIMAL},
+      DEPARTMENT_NAME = #{record.departmentName,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      LASTCHANGE_TIME = #{record.lastchangeTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SysDepartment">
+    update SYS_DEPARTMENT
+    <set>
+      <if test="departmentName != null">
+        DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastchangeTime != null">
+        LASTCHANGE_TIME = #{lastchangeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DEPART_ID = #{departId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SysDepartment">
+    update SYS_DEPARTMENT
+    set DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      LASTCHANGE_TIME = #{lastchangeTime,jdbcType=TIMESTAMP}
+    where DEPART_ID = #{departId,jdbcType=DECIMAL}
+  </update>
+</mapper>

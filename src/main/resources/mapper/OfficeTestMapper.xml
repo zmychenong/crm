@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.OfficeTestMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.OfficeTest">
+    <id column="INDEX_ID" jdbcType="VARCHAR" property="indexId" />
+    <result column="ASSESSMENT_INDEX" jdbcType="VARCHAR" property="assessmentIndex" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="COMPANY_NUMBER" jdbcType="VARCHAR" property="companyNumber" />
+    <result column="LAST_MODIFICATION_TIME" jdbcType="TIMESTAMP" property="lastModificationTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    INDEX_ID, ASSESSMENT_INDEX, REMARKS, COMPANY_NUMBER, LAST_MODIFICATION_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.OfficeTestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from OFFICE_TEST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_TEST
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from OFFICE_TEST
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.OfficeTestExample">
+    delete from OFFICE_TEST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="INDEX_ID" keyProperty="indexId" parameterType="com.sc.spring.entity.OfficeTest" useGeneratedKeys="true">
+    insert into OFFICE_TEST (ASSESSMENT_INDEX, REMARKS, COMPANY_NUMBER, 
+      LAST_MODIFICATION_TIME)
+    values (#{assessmentIndex,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{companyNumber,jdbcType=VARCHAR}, 
+      #{lastModificationTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="INDEX_ID" keyProperty="indexId" parameterType="com.sc.spring.entity.OfficeTest" useGeneratedKeys="true">
+    insert into OFFICE_TEST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="assessmentIndex != null">
+        ASSESSMENT_INDEX,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="companyNumber != null">
+        COMPANY_NUMBER,
+      </if>
+      <if test="lastModificationTime != null">
+        LAST_MODIFICATION_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="assessmentIndex != null">
+        #{assessmentIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNumber != null">
+        #{companyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModificationTime != null">
+        #{lastModificationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.OfficeTestExample" resultType="java.lang.Long">
+    select count(*) from OFFICE_TEST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update OFFICE_TEST
+    <set>
+      <if test="record.indexId != null">
+        INDEX_ID = #{record.indexId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assessmentIndex != null">
+        ASSESSMENT_INDEX = #{record.assessmentIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNumber != null">
+        COMPANY_NUMBER = #{record.companyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModificationTime != null">
+        LAST_MODIFICATION_TIME = #{record.lastModificationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update OFFICE_TEST
+    set INDEX_ID = #{record.indexId,jdbcType=VARCHAR},
+      ASSESSMENT_INDEX = #{record.assessmentIndex,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      COMPANY_NUMBER = #{record.companyNumber,jdbcType=VARCHAR},
+      LAST_MODIFICATION_TIME = #{record.lastModificationTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.OfficeTest">
+    update OFFICE_TEST
+    <set>
+      <if test="assessmentIndex != null">
+        ASSESSMENT_INDEX = #{assessmentIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNumber != null">
+        COMPANY_NUMBER = #{companyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModificationTime != null">
+        LAST_MODIFICATION_TIME = #{lastModificationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.OfficeTest">
+    update OFFICE_TEST
+    set ASSESSMENT_INDEX = #{assessmentIndex,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      COMPANY_NUMBER = #{companyNumber,jdbcType=VARCHAR},
+      LAST_MODIFICATION_TIME = #{lastModificationTime,jdbcType=TIMESTAMP}
+    where INDEX_ID = #{indexId,jdbcType=VARCHAR}
+  </update>
+</mapper>

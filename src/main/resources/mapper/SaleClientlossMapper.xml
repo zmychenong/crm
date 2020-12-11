@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SaleClientlossMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SaleClientloss">
+    <id column="LOSSNUM" jdbcType="DECIMAL" property="lossnum" />
+    <result column="CLIENTNUM" jdbcType="DECIMAL" property="clientnum" />
+    <result column="OPNUM" jdbcType="DECIMAL" property="opnum" />
+    <result column="HANDLEWAY" jdbcType="VARCHAR" property="handleway" />
+    <result column="MEASURES" jdbcType="VARCHAR" property="measures" />
+    <result column="WHETHERLOSS" jdbcType="VARCHAR" property="whetherloss" />
+    <result column="SYSNUM" jdbcType="DECIMAL" property="sysnum" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    LOSSNUM, CLIENTNUM, OPNUM, HANDLEWAY, MEASURES, WHETHERLOSS, SYSNUM, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SaleClientlossExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SALE_CLIENTLOSS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_CLIENTLOSS
+    where LOSSNUM = #{lossnum,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SALE_CLIENTLOSS
+    where LOSSNUM = #{lossnum,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SaleClientlossExample">
+    delete from SALE_CLIENTLOSS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="LOSSNUM" keyProperty="lossnum" parameterType="com.sc.spring.entity.SaleClientloss" useGeneratedKeys="true">
+    insert into SALE_CLIENTLOSS (CLIENTNUM, OPNUM, HANDLEWAY, 
+      MEASURES, WHETHERLOSS, SYSNUM, 
+      LASTTIME)
+    values (#{clientnum,jdbcType=DECIMAL}, #{opnum,jdbcType=DECIMAL}, #{handleway,jdbcType=VARCHAR}, 
+      #{measures,jdbcType=VARCHAR}, #{whetherloss,jdbcType=VARCHAR}, #{sysnum,jdbcType=DECIMAL}, 
+      #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="LOSSNUM" keyProperty="lossnum" parameterType="com.sc.spring.entity.SaleClientloss" useGeneratedKeys="true">
+    insert into SALE_CLIENTLOSS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientnum != null">
+        CLIENTNUM,
+      </if>
+      <if test="opnum != null">
+        OPNUM,
+      </if>
+      <if test="handleway != null">
+        HANDLEWAY,
+      </if>
+      <if test="measures != null">
+        MEASURES,
+      </if>
+      <if test="whetherloss != null">
+        WHETHERLOSS,
+      </if>
+      <if test="sysnum != null">
+        SYSNUM,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientnum != null">
+        #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="opnum != null">
+        #{opnum,jdbcType=DECIMAL},
+      </if>
+      <if test="handleway != null">
+        #{handleway,jdbcType=VARCHAR},
+      </if>
+      <if test="measures != null">
+        #{measures,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherloss != null">
+        #{whetherloss,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SaleClientlossExample" resultType="java.lang.Long">
+    select count(*) from SALE_CLIENTLOSS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SALE_CLIENTLOSS
+    <set>
+      <if test="record.lossnum != null">
+        LOSSNUM = #{record.lossnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.clientnum != null">
+        CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.opnum != null">
+        OPNUM = #{record.opnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.handleway != null">
+        HANDLEWAY = #{record.handleway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.measures != null">
+        MEASURES = #{record.measures,jdbcType=VARCHAR},
+      </if>
+      <if test="record.whetherloss != null">
+        WHETHERLOSS = #{record.whetherloss,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysnum != null">
+        SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SALE_CLIENTLOSS
+    set LOSSNUM = #{record.lossnum,jdbcType=DECIMAL},
+      CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      OPNUM = #{record.opnum,jdbcType=DECIMAL},
+      HANDLEWAY = #{record.handleway,jdbcType=VARCHAR},
+      MEASURES = #{record.measures,jdbcType=VARCHAR},
+      WHETHERLOSS = #{record.whetherloss,jdbcType=VARCHAR},
+      SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SaleClientloss">
+    update SALE_CLIENTLOSS
+    <set>
+      <if test="clientnum != null">
+        CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="opnum != null">
+        OPNUM = #{opnum,jdbcType=DECIMAL},
+      </if>
+      <if test="handleway != null">
+        HANDLEWAY = #{handleway,jdbcType=VARCHAR},
+      </if>
+      <if test="measures != null">
+        MEASURES = #{measures,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherloss != null">
+        WHETHERLOSS = #{whetherloss,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOSSNUM = #{lossnum,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SaleClientloss">
+    update SALE_CLIENTLOSS
+    set CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      OPNUM = #{opnum,jdbcType=DECIMAL},
+      HANDLEWAY = #{handleway,jdbcType=VARCHAR},
+      MEASURES = #{measures,jdbcType=VARCHAR},
+      WHETHERLOSS = #{whetherloss,jdbcType=VARCHAR},
+      SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where LOSSNUM = #{lossnum,jdbcType=DECIMAL}
+  </update>
+</mapper>

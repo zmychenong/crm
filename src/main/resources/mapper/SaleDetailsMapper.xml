@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SaleDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SaleDetails">
+    <id column="SALE_DID" jdbcType="VARCHAR" property="saleDid" />
+    <result column="SALE_ID" jdbcType="VARCHAR" property="saleId" />
+    <result column="SALE_COMMID" jdbcType="VARCHAR" property="saleCommid" />
+    <result column="SALE_NUM" jdbcType="VARCHAR" property="saleNum" />
+    <result column="SALE_PRICE" jdbcType="VARCHAR" property="salePrice" />
+    <result column="SALE_REMARK" jdbcType="VARCHAR" property="saleRemark" />
+    <result column="SALE_COMID" jdbcType="VARCHAR" property="saleComid" />
+    <result column="SALE_LASTDATE" jdbcType="TIMESTAMP" property="saleLastdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SALE_DID, SALE_ID, SALE_COMMID, SALE_NUM, SALE_PRICE, SALE_REMARK, SALE_COMID, SALE_LASTDATE
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SaleDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SALE_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_DETAILS
+    where SALE_DID = #{saleDid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SALE_DETAILS
+    where SALE_DID = #{saleDid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SaleDetailsExample">
+    delete from SALE_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="SALE_DID" keyProperty="saleDid" parameterType="com.sc.spring.entity.SaleDetails" useGeneratedKeys="true">
+    insert into SALE_DETAILS (SALE_ID, SALE_COMMID, SALE_NUM, 
+      SALE_PRICE, SALE_REMARK, SALE_COMID, 
+      SALE_LASTDATE)
+    values (#{saleId,jdbcType=VARCHAR}, #{saleCommid,jdbcType=VARCHAR}, #{saleNum,jdbcType=VARCHAR}, 
+      #{salePrice,jdbcType=VARCHAR}, #{saleRemark,jdbcType=VARCHAR}, #{saleComid,jdbcType=VARCHAR}, 
+      #{saleLastdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="SALE_DID" keyProperty="saleDid" parameterType="com.sc.spring.entity.SaleDetails" useGeneratedKeys="true">
+    insert into SALE_DETAILS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="saleId != null">
+        SALE_ID,
+      </if>
+      <if test="saleCommid != null">
+        SALE_COMMID,
+      </if>
+      <if test="saleNum != null">
+        SALE_NUM,
+      </if>
+      <if test="salePrice != null">
+        SALE_PRICE,
+      </if>
+      <if test="saleRemark != null">
+        SALE_REMARK,
+      </if>
+      <if test="saleComid != null">
+        SALE_COMID,
+      </if>
+      <if test="saleLastdate != null">
+        SALE_LASTDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="saleId != null">
+        #{saleId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleCommid != null">
+        #{saleCommid,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null">
+        #{saleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="saleRemark != null">
+        #{saleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="saleComid != null">
+        #{saleComid,jdbcType=VARCHAR},
+      </if>
+      <if test="saleLastdate != null">
+        #{saleLastdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SaleDetailsExample" resultType="java.lang.Long">
+    select count(*) from SALE_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SALE_DETAILS
+    <set>
+      <if test="record.saleDid != null">
+        SALE_DID = #{record.saleDid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleId != null">
+        SALE_ID = #{record.saleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleCommid != null">
+        SALE_COMMID = #{record.saleCommid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleNum != null">
+        SALE_NUM = #{record.saleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salePrice != null">
+        SALE_PRICE = #{record.salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleRemark != null">
+        SALE_REMARK = #{record.saleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleComid != null">
+        SALE_COMID = #{record.saleComid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleLastdate != null">
+        SALE_LASTDATE = #{record.saleLastdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SALE_DETAILS
+    set SALE_DID = #{record.saleDid,jdbcType=VARCHAR},
+      SALE_ID = #{record.saleId,jdbcType=VARCHAR},
+      SALE_COMMID = #{record.saleCommid,jdbcType=VARCHAR},
+      SALE_NUM = #{record.saleNum,jdbcType=VARCHAR},
+      SALE_PRICE = #{record.salePrice,jdbcType=VARCHAR},
+      SALE_REMARK = #{record.saleRemark,jdbcType=VARCHAR},
+      SALE_COMID = #{record.saleComid,jdbcType=VARCHAR},
+      SALE_LASTDATE = #{record.saleLastdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SaleDetails">
+    update SALE_DETAILS
+    <set>
+      <if test="saleId != null">
+        SALE_ID = #{saleId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleCommid != null">
+        SALE_COMMID = #{saleCommid,jdbcType=VARCHAR},
+      </if>
+      <if test="saleNum != null">
+        SALE_NUM = #{saleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null">
+        SALE_PRICE = #{salePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="saleRemark != null">
+        SALE_REMARK = #{saleRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="saleComid != null">
+        SALE_COMID = #{saleComid,jdbcType=VARCHAR},
+      </if>
+      <if test="saleLastdate != null">
+        SALE_LASTDATE = #{saleLastdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SALE_DID = #{saleDid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SaleDetails">
+    update SALE_DETAILS
+    set SALE_ID = #{saleId,jdbcType=VARCHAR},
+      SALE_COMMID = #{saleCommid,jdbcType=VARCHAR},
+      SALE_NUM = #{saleNum,jdbcType=VARCHAR},
+      SALE_PRICE = #{salePrice,jdbcType=VARCHAR},
+      SALE_REMARK = #{saleRemark,jdbcType=VARCHAR},
+      SALE_COMID = #{saleComid,jdbcType=VARCHAR},
+      SALE_LASTDATE = #{saleLastdate,jdbcType=TIMESTAMP}
+    where SALE_DID = #{saleDid,jdbcType=VARCHAR}
+  </update>
+</mapper>
