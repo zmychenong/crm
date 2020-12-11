@@ -7,6 +7,7 @@ import com.sc.spring.service.SaleClientlossService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -25,8 +26,9 @@ public class SaleClientlossController {
 
     @RequestMapping("/select.do")
     @ResponseBody
-    public Result select(){
-        PageInfo<SaleClientloss> pageInfo = saleClientlossService.selectpage(1, 5, null);
+    public Result select(@RequestParam(defaultValue = "1") int iDisplayStart,
+                         @RequestParam(defaultValue = "10") int iDisplayLength){
+        PageInfo<SaleClientloss> pageInfo = saleClientlossService.selectpage(iDisplayStart, iDisplayLength, null);
 
         Result r=new Result();
         r.setAaData(pageInfo.getList());
