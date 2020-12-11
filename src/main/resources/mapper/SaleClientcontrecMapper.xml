@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SaleClientcontrecMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SaleClientcontrec">
+    <id column="RECNUM" jdbcType="DECIMAL" property="recnum" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="CLIENTNUM" jdbcType="DECIMAL" property="clientnum" />
+    <result column="DETAILS" jdbcType="VARCHAR" property="details" />
+    <result column="SYSNUM" jdbcType="DECIMAL" property="sysnum" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RECNUM, TITLE, "TIME", CLIENTNUM, DETAILS, SYSNUM, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SaleClientcontrecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SALE_CLIENTCONTREC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_CLIENTCONTREC
+    where RECNUM = #{recnum,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SALE_CLIENTCONTREC
+    where RECNUM = #{recnum,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SaleClientcontrecExample">
+    delete from SALE_CLIENTCONTREC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="RECNUM" keyProperty="recnum" parameterType="com.sc.spring.entity.SaleClientcontrec" useGeneratedKeys="true">
+    insert into SALE_CLIENTCONTREC (TITLE, "TIME", CLIENTNUM, 
+      DETAILS, SYSNUM, LASTTIME
+      )
+    values (#{title,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{clientnum,jdbcType=DECIMAL}, 
+      #{details,jdbcType=VARCHAR}, #{sysnum,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="RECNUM" keyProperty="recnum" parameterType="com.sc.spring.entity.SaleClientcontrec" useGeneratedKeys="true">
+    insert into SALE_CLIENTCONTREC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="time != null">
+        "TIME",
+      </if>
+      <if test="clientnum != null">
+        CLIENTNUM,
+      </if>
+      <if test="details != null">
+        DETAILS,
+      </if>
+      <if test="sysnum != null">
+        SYSNUM,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientnum != null">
+        #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SaleClientcontrecExample" resultType="java.lang.Long">
+    select count(*) from SALE_CLIENTCONTREC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SALE_CLIENTCONTREC
+    <set>
+      <if test="record.recnum != null">
+        RECNUM = #{record.recnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.title != null">
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        "TIME" = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientnum != null">
+        CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.details != null">
+        DETAILS = #{record.details,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysnum != null">
+        SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SALE_CLIENTCONTREC
+    set RECNUM = #{record.recnum,jdbcType=DECIMAL},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      "TIME" = #{record.time,jdbcType=TIMESTAMP},
+      CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      DETAILS = #{record.details,jdbcType=VARCHAR},
+      SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SaleClientcontrec">
+    update SALE_CLIENTCONTREC
+    <set>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        "TIME" = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientnum != null">
+        CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="details != null">
+        DETAILS = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RECNUM = #{recnum,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SaleClientcontrec">
+    update SALE_CLIENTCONTREC
+    set TITLE = #{title,jdbcType=VARCHAR},
+      "TIME" = #{time,jdbcType=TIMESTAMP},
+      CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      DETAILS = #{details,jdbcType=VARCHAR},
+      SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where RECNUM = #{recnum,jdbcType=DECIMAL}
+  </update>
+</mapper>

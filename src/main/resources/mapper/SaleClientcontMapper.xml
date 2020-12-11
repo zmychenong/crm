@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SaleClientcontMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SaleClientcont">
+    <id column="CONTNUM" jdbcType="DECIMAL" property="contnum" />
+    <result column="CLIENTNUM" jdbcType="DECIMAL" property="clientnum" />
+    <result column="CONTNAME" jdbcType="VARCHAR" property="contname" />
+    <result column="ENGLISH" jdbcType="VARCHAR" property="english" />
+    <result column="BOTANY" jdbcType="VARCHAR" property="botany" />
+    <result column="DEPARTMENT" jdbcType="VARCHAR" property="department" />
+    <result column="PHONENUM" jdbcType="DECIMAL" property="phonenum" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="ADRESS" jdbcType="VARCHAR" property="adress" />
+    <result column="BEIZHUXX" jdbcType="VARCHAR" property="beizhuxx" />
+    <result column="SYSNUM" jdbcType="DECIMAL" property="sysnum" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONTNUM, CLIENTNUM, CONTNAME, ENGLISH, BOTANY, DEPARTMENT, PHONENUM, TELEPHONE, EMAIL, 
+    ADRESS, BEIZHUXX, SYSNUM, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SaleClientcontExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SALE_CLIENTCONT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_CLIENTCONT
+    where CONTNUM = #{contnum,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SALE_CLIENTCONT
+    where CONTNUM = #{contnum,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SaleClientcontExample">
+    delete from SALE_CLIENTCONT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="CONTNUM" keyProperty="contnum" parameterType="com.sc.spring.entity.SaleClientcont" useGeneratedKeys="true">
+    insert into SALE_CLIENTCONT (CLIENTNUM, CONTNAME, ENGLISH, 
+      BOTANY, DEPARTMENT, PHONENUM, 
+      TELEPHONE, EMAIL, ADRESS, 
+      BEIZHUXX, SYSNUM, LASTTIME
+      )
+    values (#{clientnum,jdbcType=DECIMAL}, #{contname,jdbcType=VARCHAR}, #{english,jdbcType=VARCHAR}, 
+      #{botany,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{phonenum,jdbcType=DECIMAL}, 
+      #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, 
+      #{beizhuxx,jdbcType=VARCHAR}, #{sysnum,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="CONTNUM" keyProperty="contnum" parameterType="com.sc.spring.entity.SaleClientcont" useGeneratedKeys="true">
+    insert into SALE_CLIENTCONT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientnum != null">
+        CLIENTNUM,
+      </if>
+      <if test="contname != null">
+        CONTNAME,
+      </if>
+      <if test="english != null">
+        ENGLISH,
+      </if>
+      <if test="botany != null">
+        BOTANY,
+      </if>
+      <if test="department != null">
+        DEPARTMENT,
+      </if>
+      <if test="phonenum != null">
+        PHONENUM,
+      </if>
+      <if test="telephone != null">
+        TELEPHONE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="adress != null">
+        ADRESS,
+      </if>
+      <if test="beizhuxx != null">
+        BEIZHUXX,
+      </if>
+      <if test="sysnum != null">
+        SYSNUM,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientnum != null">
+        #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="contname != null">
+        #{contname,jdbcType=VARCHAR},
+      </if>
+      <if test="english != null">
+        #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="botany != null">
+        #{botany,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null">
+        #{phonenum,jdbcType=DECIMAL},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="beizhuxx != null">
+        #{beizhuxx,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SaleClientcontExample" resultType="java.lang.Long">
+    select count(*) from SALE_CLIENTCONT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SALE_CLIENTCONT
+    <set>
+      <if test="record.contnum != null">
+        CONTNUM = #{record.contnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.clientnum != null">
+        CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contname != null">
+        CONTNAME = #{record.contname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.english != null">
+        ENGLISH = #{record.english,jdbcType=VARCHAR},
+      </if>
+      <if test="record.botany != null">
+        BOTANY = #{record.botany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        DEPARTMENT = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenum != null">
+        PHONENUM = #{record.phonenum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.telephone != null">
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adress != null">
+        ADRESS = #{record.adress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beizhuxx != null">
+        BEIZHUXX = #{record.beizhuxx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysnum != null">
+        SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SALE_CLIENTCONT
+    set CONTNUM = #{record.contnum,jdbcType=DECIMAL},
+      CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      CONTNAME = #{record.contname,jdbcType=VARCHAR},
+      ENGLISH = #{record.english,jdbcType=VARCHAR},
+      BOTANY = #{record.botany,jdbcType=VARCHAR},
+      DEPARTMENT = #{record.department,jdbcType=VARCHAR},
+      PHONENUM = #{record.phonenum,jdbcType=DECIMAL},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      ADRESS = #{record.adress,jdbcType=VARCHAR},
+      BEIZHUXX = #{record.beizhuxx,jdbcType=VARCHAR},
+      SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SaleClientcont">
+    update SALE_CLIENTCONT
+    <set>
+      <if test="clientnum != null">
+        CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="contname != null">
+        CONTNAME = #{contname,jdbcType=VARCHAR},
+      </if>
+      <if test="english != null">
+        ENGLISH = #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="botany != null">
+        BOTANY = #{botany,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null">
+        PHONENUM = #{phonenum,jdbcType=DECIMAL},
+      </if>
+      <if test="telephone != null">
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        ADRESS = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="beizhuxx != null">
+        BEIZHUXX = #{beizhuxx,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CONTNUM = #{contnum,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SaleClientcont">
+    update SALE_CLIENTCONT
+    set CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      CONTNAME = #{contname,jdbcType=VARCHAR},
+      ENGLISH = #{english,jdbcType=VARCHAR},
+      BOTANY = #{botany,jdbcType=VARCHAR},
+      DEPARTMENT = #{department,jdbcType=VARCHAR},
+      PHONENUM = #{phonenum,jdbcType=DECIMAL},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ADRESS = #{adress,jdbcType=VARCHAR},
+      BEIZHUXX = #{beizhuxx,jdbcType=VARCHAR},
+      SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where CONTNUM = #{contnum,jdbcType=DECIMAL}
+  </update>
+</mapper>

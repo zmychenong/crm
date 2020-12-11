@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.OfficemesdetMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.Officemesdet">
+    <id column="DETAIL_NO" jdbcType="DECIMAL" property="detailNo" />
+    <result column="SMS_NUMNER" jdbcType="DECIMAL" property="smsNumner" />
+    <result column="RECEIVER_NUMBER" jdbcType="DECIMAL" property="receiverNumber" />
+    <result column="MESSAGE_STATUS" jdbcType="VARCHAR" property="messageStatus" />
+    <result column="COMPANY_NUMBER" jdbcType="DECIMAL" property="companyNumber" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DETAIL_NO, SMS_NUMNER, RECEIVER_NUMBER, MESSAGE_STATUS, COMPANY_NUMBER, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.OfficemesdetExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from OFFICE_MESDET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from OFFICE_MESDET
+    where DETAIL_NO = #{detailNo,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from OFFICE_MESDET
+    where DETAIL_NO = #{detailNo,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.OfficemesdetExample">
+    delete from OFFICE_MESDET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="DETAIL_NO" keyProperty="detailNo" parameterType="com.sc.spring.entity.Officemesdet" useGeneratedKeys="true">
+    insert into OFFICE_MESDET (SMS_NUMNER, RECEIVER_NUMBER, MESSAGE_STATUS, 
+      COMPANY_NUMBER, LASTTIME)
+    values (#{smsNumner,jdbcType=DECIMAL}, #{receiverNumber,jdbcType=DECIMAL}, #{messageStatus,jdbcType=VARCHAR}, 
+      #{companyNumber,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="DETAIL_NO" keyProperty="detailNo" parameterType="com.sc.spring.entity.Officemesdet" useGeneratedKeys="true">
+    insert into OFFICE_MESDET
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="smsNumner != null">
+        SMS_NUMNER,
+      </if>
+      <if test="receiverNumber != null">
+        RECEIVER_NUMBER,
+      </if>
+      <if test="messageStatus != null">
+        MESSAGE_STATUS,
+      </if>
+      <if test="companyNumber != null">
+        COMPANY_NUMBER,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="smsNumner != null">
+        #{smsNumner,jdbcType=DECIMAL},
+      </if>
+      <if test="receiverNumber != null">
+        #{receiverNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="messageStatus != null">
+        #{messageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNumber != null">
+        #{companyNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.OfficemesdetExample" resultType="java.lang.Long">
+    select count(*) from OFFICE_MESDET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update OFFICE_MESDET
+    <set>
+      <if test="record.detailNo != null">
+        DETAIL_NO = #{record.detailNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.smsNumner != null">
+        SMS_NUMNER = #{record.smsNumner,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiverNumber != null">
+        RECEIVER_NUMBER = #{record.receiverNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.messageStatus != null">
+        MESSAGE_STATUS = #{record.messageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNumber != null">
+        COMPANY_NUMBER = #{record.companyNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update OFFICE_MESDET
+    set DETAIL_NO = #{record.detailNo,jdbcType=DECIMAL},
+      SMS_NUMNER = #{record.smsNumner,jdbcType=DECIMAL},
+      RECEIVER_NUMBER = #{record.receiverNumber,jdbcType=DECIMAL},
+      MESSAGE_STATUS = #{record.messageStatus,jdbcType=VARCHAR},
+      COMPANY_NUMBER = #{record.companyNumber,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.Officemesdet">
+    update OFFICE_MESDET
+    <set>
+      <if test="smsNumner != null">
+        SMS_NUMNER = #{smsNumner,jdbcType=DECIMAL},
+      </if>
+      <if test="receiverNumber != null">
+        RECEIVER_NUMBER = #{receiverNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="messageStatus != null">
+        MESSAGE_STATUS = #{messageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNumber != null">
+        COMPANY_NUMBER = #{companyNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DETAIL_NO = #{detailNo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.Officemesdet">
+    update OFFICE_MESDET
+    set SMS_NUMNER = #{smsNumner,jdbcType=DECIMAL},
+      RECEIVER_NUMBER = #{receiverNumber,jdbcType=DECIMAL},
+      MESSAGE_STATUS = #{messageStatus,jdbcType=VARCHAR},
+      COMPANY_NUMBER = #{companyNumber,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where DETAIL_NO = #{detailNo,jdbcType=DECIMAL}
+  </update>
+</mapper>

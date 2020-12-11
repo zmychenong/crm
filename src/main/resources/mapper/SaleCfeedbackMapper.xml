@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SaleCfeedbackMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SaleCfeedback">
+    <id column="BACKNUM" jdbcType="DECIMAL" property="backnum" />
+    <result column="RECORDFIRST" jdbcType="VARCHAR" property="recordfirst" />
+    <result column="CLIENTNUM" jdbcType="DECIMAL" property="clientnum" />
+    <result column="HOW" jdbcType="VARCHAR" property="how" />
+    <result column="FEEDBACKTYPE" jdbcType="VARCHAR" property="feedbacktype" />
+    <result column="FEEDBACKTIME" jdbcType="TIMESTAMP" property="feedbacktime" />
+    <result column="REASON" jdbcType="VARCHAR" property="reason" />
+    <result column="CHARGEMEN" jdbcType="VARCHAR" property="chargemen" />
+    <result column="SOURCE" jdbcType="VARCHAR" property="source" />
+    <result column="THEME" jdbcType="VARCHAR" property="theme" />
+    <result column="ANALYSIS" jdbcType="VARCHAR" property="analysis" />
+    <result column="SYSNUM" jdbcType="DECIMAL" property="sysnum" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BACKNUM, RECORDFIRST, CLIENTNUM, HOW, FEEDBACKTYPE, FEEDBACKTIME, REASON, CHARGEMEN, 
+    "SOURCE", THEME, ANALYSIS, SYSNUM, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SaleCfeedbackExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SALE_CFEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SALE_CFEEDBACK
+    where BACKNUM = #{backnum,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SALE_CFEEDBACK
+    where BACKNUM = #{backnum,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SaleCfeedbackExample">
+    delete from SALE_CFEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="BACKNUM" keyProperty="backnum" parameterType="com.sc.spring.entity.SaleCfeedback" useGeneratedKeys="true">
+    insert into SALE_CFEEDBACK (RECORDFIRST, CLIENTNUM, HOW, 
+      FEEDBACKTYPE, FEEDBACKTIME, REASON, 
+      CHARGEMEN, "SOURCE", THEME, 
+      ANALYSIS, SYSNUM, LASTTIME
+      )
+    values (#{recordfirst,jdbcType=VARCHAR}, #{clientnum,jdbcType=DECIMAL}, #{how,jdbcType=VARCHAR}, 
+      #{feedbacktype,jdbcType=VARCHAR}, #{feedbacktime,jdbcType=TIMESTAMP}, #{reason,jdbcType=VARCHAR}, 
+      #{chargemen,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR}, 
+      #{analysis,jdbcType=VARCHAR}, #{sysnum,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="BACKNUM" keyProperty="backnum" parameterType="com.sc.spring.entity.SaleCfeedback" useGeneratedKeys="true">
+    insert into SALE_CFEEDBACK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordfirst != null">
+        RECORDFIRST,
+      </if>
+      <if test="clientnum != null">
+        CLIENTNUM,
+      </if>
+      <if test="how != null">
+        HOW,
+      </if>
+      <if test="feedbacktype != null">
+        FEEDBACKTYPE,
+      </if>
+      <if test="feedbacktime != null">
+        FEEDBACKTIME,
+      </if>
+      <if test="reason != null">
+        REASON,
+      </if>
+      <if test="chargemen != null">
+        CHARGEMEN,
+      </if>
+      <if test="source != null">
+        "SOURCE",
+      </if>
+      <if test="theme != null">
+        THEME,
+      </if>
+      <if test="analysis != null">
+        ANALYSIS,
+      </if>
+      <if test="sysnum != null">
+        SYSNUM,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordfirst != null">
+        #{recordfirst,jdbcType=VARCHAR},
+      </if>
+      <if test="clientnum != null">
+        #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="how != null">
+        #{how,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbacktype != null">
+        #{feedbacktype,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbacktime != null">
+        #{feedbacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="chargemen != null">
+        #{chargemen,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null">
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="analysis != null">
+        #{analysis,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SaleCfeedbackExample" resultType="java.lang.Long">
+    select count(*) from SALE_CFEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SALE_CFEEDBACK
+    <set>
+      <if test="record.backnum != null">
+        BACKNUM = #{record.backnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.recordfirst != null">
+        RECORDFIRST = #{record.recordfirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientnum != null">
+        CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.how != null">
+        HOW = #{record.how,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbacktype != null">
+        FEEDBACKTYPE = #{record.feedbacktype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbacktime != null">
+        FEEDBACKTIME = #{record.feedbacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reason != null">
+        REASON = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargemen != null">
+        CHARGEMEN = #{record.chargemen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        "SOURCE" = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.theme != null">
+        THEME = #{record.theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.analysis != null">
+        ANALYSIS = #{record.analysis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysnum != null">
+        SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SALE_CFEEDBACK
+    set BACKNUM = #{record.backnum,jdbcType=DECIMAL},
+      RECORDFIRST = #{record.recordfirst,jdbcType=VARCHAR},
+      CLIENTNUM = #{record.clientnum,jdbcType=DECIMAL},
+      HOW = #{record.how,jdbcType=VARCHAR},
+      FEEDBACKTYPE = #{record.feedbacktype,jdbcType=VARCHAR},
+      FEEDBACKTIME = #{record.feedbacktime,jdbcType=TIMESTAMP},
+      REASON = #{record.reason,jdbcType=VARCHAR},
+      CHARGEMEN = #{record.chargemen,jdbcType=VARCHAR},
+      "SOURCE" = #{record.source,jdbcType=VARCHAR},
+      THEME = #{record.theme,jdbcType=VARCHAR},
+      ANALYSIS = #{record.analysis,jdbcType=VARCHAR},
+      SYSNUM = #{record.sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SaleCfeedback">
+    update SALE_CFEEDBACK
+    <set>
+      <if test="recordfirst != null">
+        RECORDFIRST = #{recordfirst,jdbcType=VARCHAR},
+      </if>
+      <if test="clientnum != null">
+        CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      </if>
+      <if test="how != null">
+        HOW = #{how,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbacktype != null">
+        FEEDBACKTYPE = #{feedbacktype,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbacktime != null">
+        FEEDBACKTIME = #{feedbacktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null">
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="chargemen != null">
+        CHARGEMEN = #{chargemen,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        "SOURCE" = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null">
+        THEME = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="analysis != null">
+        ANALYSIS = #{analysis,jdbcType=VARCHAR},
+      </if>
+      <if test="sysnum != null">
+        SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BACKNUM = #{backnum,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SaleCfeedback">
+    update SALE_CFEEDBACK
+    set RECORDFIRST = #{recordfirst,jdbcType=VARCHAR},
+      CLIENTNUM = #{clientnum,jdbcType=DECIMAL},
+      HOW = #{how,jdbcType=VARCHAR},
+      FEEDBACKTYPE = #{feedbacktype,jdbcType=VARCHAR},
+      FEEDBACKTIME = #{feedbacktime,jdbcType=TIMESTAMP},
+      REASON = #{reason,jdbcType=VARCHAR},
+      CHARGEMEN = #{chargemen,jdbcType=VARCHAR},
+      "SOURCE" = #{source,jdbcType=VARCHAR},
+      THEME = #{theme,jdbcType=VARCHAR},
+      ANALYSIS = #{analysis,jdbcType=VARCHAR},
+      SYSNUM = #{sysnum,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where BACKNUM = #{backnum,jdbcType=DECIMAL}
+  </update>
+</mapper>

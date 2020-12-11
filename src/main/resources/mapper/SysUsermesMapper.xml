@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SysUsermesMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SysUsermes">
+    <id column="WORKER_ID" jdbcType="DECIMAL" property="workerId" />
+    <result column="WORKER_NAME" jdbcType="VARCHAR" property="workerName" />
+    <result column="WORKER_SEX" jdbcType="VARCHAR" property="workerSex" />
+    <result column="WORKER_PHOTO" jdbcType="VARCHAR" property="workerPhoto" />
+    <result column="WORKER_IDCARD" jdbcType="VARCHAR" property="workerIdcard" />
+    <result column="HOME_ADDRESS" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="NOW_ADDRESS" jdbcType="VARCHAR" property="nowAddress" />
+    <result column="WORKER_EDU" jdbcType="VARCHAR" property="workerEdu" />
+    <result column="POLITC_OUTLOOK" jdbcType="VARCHAR" property="politcOutlook" />
+    <result column="SCHOOL" jdbcType="VARCHAR" property="school" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="ONLINE_CONTACT" jdbcType="VARCHAR" property="onlineContact" />
+    <result column="CONTACTINFO" jdbcType="VARCHAR" property="contactinfo" />
+    <result column="EXAMINE_STATE" jdbcType="VARCHAR" property="examineState" />
+    <result column="POST_ID" jdbcType="DECIMAL" property="postId" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="COMPANY_ID" jdbcType="DECIMAL" property="companyId" />
+    <result column="LASTCHANGE_TIME" jdbcType="TIMESTAMP" property="lastchangeTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    WORKER_ID, WORKER_NAME, WORKER_SEX, WORKER_PHOTO, WORKER_IDCARD, HOME_ADDRESS, NOW_ADDRESS, 
+    WORKER_EDU, POLITC_OUTLOOK, SCHOOL, PHONE, ONLINE_CONTACT, CONTACTINFO, EXAMINE_STATE, 
+    POST_ID, REMARKS, COMPANY_ID, LASTCHANGE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SysUsermesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_USERMES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_USERMES
+    where WORKER_ID = #{workerId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from SYS_USERMES
+    where WORKER_ID = #{workerId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SysUsermesExample">
+    delete from SYS_USERMES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="WORKER_ID" keyProperty="workerId" parameterType="com.sc.spring.entity.SysUsermes" useGeneratedKeys="true">
+    insert into SYS_USERMES (WORKER_NAME, WORKER_SEX, WORKER_PHOTO, 
+      WORKER_IDCARD, HOME_ADDRESS, NOW_ADDRESS, 
+      WORKER_EDU, POLITC_OUTLOOK, SCHOOL, 
+      PHONE, ONLINE_CONTACT, CONTACTINFO, 
+      EXAMINE_STATE, POST_ID, REMARKS, 
+      COMPANY_ID, LASTCHANGE_TIME)
+    values (#{workerName,jdbcType=VARCHAR}, #{workerSex,jdbcType=VARCHAR}, #{workerPhoto,jdbcType=VARCHAR}, 
+      #{workerIdcard,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, #{nowAddress,jdbcType=VARCHAR}, 
+      #{workerEdu,jdbcType=VARCHAR}, #{politcOutlook,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{onlineContact,jdbcType=VARCHAR}, #{contactinfo,jdbcType=VARCHAR}, 
+      #{examineState,jdbcType=VARCHAR}, #{postId,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=DECIMAL}, #{lastchangeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="WORKER_ID" keyProperty="workerId" parameterType="com.sc.spring.entity.SysUsermes" useGeneratedKeys="true">
+    insert into SYS_USERMES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="workerName != null">
+        WORKER_NAME,
+      </if>
+      <if test="workerSex != null">
+        WORKER_SEX,
+      </if>
+      <if test="workerPhoto != null">
+        WORKER_PHOTO,
+      </if>
+      <if test="workerIdcard != null">
+        WORKER_IDCARD,
+      </if>
+      <if test="homeAddress != null">
+        HOME_ADDRESS,
+      </if>
+      <if test="nowAddress != null">
+        NOW_ADDRESS,
+      </if>
+      <if test="workerEdu != null">
+        WORKER_EDU,
+      </if>
+      <if test="politcOutlook != null">
+        POLITC_OUTLOOK,
+      </if>
+      <if test="school != null">
+        SCHOOL,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="onlineContact != null">
+        ONLINE_CONTACT,
+      </if>
+      <if test="contactinfo != null">
+        CONTACTINFO,
+      </if>
+      <if test="examineState != null">
+        EXAMINE_STATE,
+      </if>
+      <if test="postId != null">
+        POST_ID,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID,
+      </if>
+      <if test="lastchangeTime != null">
+        LASTCHANGE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="workerName != null">
+        #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerSex != null">
+        #{workerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="workerPhoto != null">
+        #{workerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="workerIdcard != null">
+        #{workerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nowAddress != null">
+        #{nowAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="workerEdu != null">
+        #{workerEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="politcOutlook != null">
+        #{politcOutlook,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineContact != null">
+        #{onlineContact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactinfo != null">
+        #{contactinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="examineState != null">
+        #{examineState,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastchangeTime != null">
+        #{lastchangeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SysUsermesExample" resultType="java.lang.Long">
+    select count(*) from SYS_USERMES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYS_USERMES
+    <set>
+      <if test="record.workerId != null">
+        WORKER_ID = #{record.workerId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.workerName != null">
+        WORKER_NAME = #{record.workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerSex != null">
+        WORKER_SEX = #{record.workerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerPhoto != null">
+        WORKER_PHOTO = #{record.workerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerIdcard != null">
+        WORKER_IDCARD = #{record.workerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAddress != null">
+        HOME_ADDRESS = #{record.homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowAddress != null">
+        NOW_ADDRESS = #{record.nowAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerEdu != null">
+        WORKER_EDU = #{record.workerEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.politcOutlook != null">
+        POLITC_OUTLOOK = #{record.politcOutlook,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null">
+        SCHOOL = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineContact != null">
+        ONLINE_CONTACT = #{record.onlineContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactinfo != null">
+        CONTACTINFO = #{record.contactinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examineState != null">
+        EXAMINE_STATE = #{record.examineState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postId != null">
+        POST_ID = #{record.postId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null">
+        COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastchangeTime != null">
+        LASTCHANGE_TIME = #{record.lastchangeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYS_USERMES
+    set WORKER_ID = #{record.workerId,jdbcType=DECIMAL},
+      WORKER_NAME = #{record.workerName,jdbcType=VARCHAR},
+      WORKER_SEX = #{record.workerSex,jdbcType=VARCHAR},
+      WORKER_PHOTO = #{record.workerPhoto,jdbcType=VARCHAR},
+      WORKER_IDCARD = #{record.workerIdcard,jdbcType=VARCHAR},
+      HOME_ADDRESS = #{record.homeAddress,jdbcType=VARCHAR},
+      NOW_ADDRESS = #{record.nowAddress,jdbcType=VARCHAR},
+      WORKER_EDU = #{record.workerEdu,jdbcType=VARCHAR},
+      POLITC_OUTLOOK = #{record.politcOutlook,jdbcType=VARCHAR},
+      SCHOOL = #{record.school,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      ONLINE_CONTACT = #{record.onlineContact,jdbcType=VARCHAR},
+      CONTACTINFO = #{record.contactinfo,jdbcType=VARCHAR},
+      EXAMINE_STATE = #{record.examineState,jdbcType=VARCHAR},
+      POST_ID = #{record.postId,jdbcType=DECIMAL},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      COMPANY_ID = #{record.companyId,jdbcType=DECIMAL},
+      LASTCHANGE_TIME = #{record.lastchangeTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SysUsermes">
+    update SYS_USERMES
+    <set>
+      <if test="workerName != null">
+        WORKER_NAME = #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerSex != null">
+        WORKER_SEX = #{workerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="workerPhoto != null">
+        WORKER_PHOTO = #{workerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="workerIdcard != null">
+        WORKER_IDCARD = #{workerIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nowAddress != null">
+        NOW_ADDRESS = #{nowAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="workerEdu != null">
+        WORKER_EDU = #{workerEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="politcOutlook != null">
+        POLITC_OUTLOOK = #{politcOutlook,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        SCHOOL = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineContact != null">
+        ONLINE_CONTACT = #{onlineContact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactinfo != null">
+        CONTACTINFO = #{contactinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="examineState != null">
+        EXAMINE_STATE = #{examineState,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        POST_ID = #{postId,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      </if>
+      <if test="lastchangeTime != null">
+        LASTCHANGE_TIME = #{lastchangeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WORKER_ID = #{workerId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SysUsermes">
+    update SYS_USERMES
+    set WORKER_NAME = #{workerName,jdbcType=VARCHAR},
+      WORKER_SEX = #{workerSex,jdbcType=VARCHAR},
+      WORKER_PHOTO = #{workerPhoto,jdbcType=VARCHAR},
+      WORKER_IDCARD = #{workerIdcard,jdbcType=VARCHAR},
+      HOME_ADDRESS = #{homeAddress,jdbcType=VARCHAR},
+      NOW_ADDRESS = #{nowAddress,jdbcType=VARCHAR},
+      WORKER_EDU = #{workerEdu,jdbcType=VARCHAR},
+      POLITC_OUTLOOK = #{politcOutlook,jdbcType=VARCHAR},
+      SCHOOL = #{school,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      ONLINE_CONTACT = #{onlineContact,jdbcType=VARCHAR},
+      CONTACTINFO = #{contactinfo,jdbcType=VARCHAR},
+      EXAMINE_STATE = #{examineState,jdbcType=VARCHAR},
+      POST_ID = #{postId,jdbcType=DECIMAL},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      COMPANY_ID = #{companyId,jdbcType=DECIMAL},
+      LASTCHANGE_TIME = #{lastchangeTime,jdbcType=TIMESTAMP}
+    where WORKER_ID = #{workerId,jdbcType=DECIMAL}
+  </update>
+</mapper>

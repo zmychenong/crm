@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.PurOrderlistMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.PurOrderlist">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="OID" jdbcType="DECIMAL" property="oid" />
+    <result column="PID" jdbcType="DECIMAL" property="pid" />
+    <result column="PNUM" jdbcType="DECIMAL" property="pnum" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="ISRUKU" jdbcType="VARCHAR" property="isruku" />
+    <result column="PERSON" jdbcType="VARCHAR" property="person" />
+    <result column="REMAKERS" jdbcType="VARCHAR" property="remakers" />
+    <result column="CID" jdbcType="DECIMAL" property="cid" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, OID, PID, PNUM, PRICE, ISRUKU, PERSON, REMAKERS, CID, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.PurOrderlistExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PUR_ORDERLIST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_ORDERLIST
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from PUR_ORDERLIST
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.PurOrderlistExample">
+    delete from PUR_ORDERLIST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.sc.spring.entity.PurOrderlist" useGeneratedKeys="true">
+    insert into PUR_ORDERLIST (OID, PID, PNUM, 
+      PRICE, ISRUKU, PERSON, 
+      REMAKERS, CID, LASTTIME
+      )
+    values (#{oid,jdbcType=DECIMAL}, #{pid,jdbcType=DECIMAL}, #{pnum,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{isruku,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}, 
+      #{remakers,jdbcType=VARCHAR}, #{cid,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.sc.spring.entity.PurOrderlist" useGeneratedKeys="true">
+    insert into PUR_ORDERLIST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        OID,
+      </if>
+      <if test="pid != null">
+        PID,
+      </if>
+      <if test="pnum != null">
+        PNUM,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="isruku != null">
+        ISRUKU,
+      </if>
+      <if test="person != null">
+        PERSON,
+      </if>
+      <if test="remakers != null">
+        REMAKERS,
+      </if>
+      <if test="cid != null">
+        CID,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=DECIMAL},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="pnum != null">
+        #{pnum,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isruku != null">
+        #{isruku,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="remakers != null">
+        #{remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.PurOrderlistExample" resultType="java.lang.Long">
+    select count(*) from PUR_ORDERLIST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PUR_ORDERLIST
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.oid != null">
+        OID = #{record.oid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pid != null">
+        PID = #{record.pid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pnum != null">
+        PNUM = #{record.pnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.price != null">
+        PRICE = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isruku != null">
+        ISRUKU = #{record.isruku,jdbcType=VARCHAR},
+      </if>
+      <if test="record.person != null">
+        PERSON = #{record.person,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remakers != null">
+        REMAKERS = #{record.remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null">
+        CID = #{record.cid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PUR_ORDERLIST
+    set ID = #{record.id,jdbcType=DECIMAL},
+      OID = #{record.oid,jdbcType=DECIMAL},
+      PID = #{record.pid,jdbcType=DECIMAL},
+      PNUM = #{record.pnum,jdbcType=DECIMAL},
+      PRICE = #{record.price,jdbcType=DECIMAL},
+      ISRUKU = #{record.isruku,jdbcType=VARCHAR},
+      PERSON = #{record.person,jdbcType=VARCHAR},
+      REMAKERS = #{record.remakers,jdbcType=VARCHAR},
+      CID = #{record.cid,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.PurOrderlist">
+    update PUR_ORDERLIST
+    <set>
+      <if test="oid != null">
+        OID = #{oid,jdbcType=DECIMAL},
+      </if>
+      <if test="pid != null">
+        PID = #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="pnum != null">
+        PNUM = #{pnum,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="isruku != null">
+        ISRUKU = #{isruku,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null">
+        PERSON = #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="remakers != null">
+        REMAKERS = #{remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        CID = #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.PurOrderlist">
+    update PUR_ORDERLIST
+    set OID = #{oid,jdbcType=DECIMAL},
+      PID = #{pid,jdbcType=DECIMAL},
+      PNUM = #{pnum,jdbcType=DECIMAL},
+      PRICE = #{price,jdbcType=DECIMAL},
+      ISRUKU = #{isruku,jdbcType=VARCHAR},
+      PERSON = #{person,jdbcType=VARCHAR},
+      REMAKERS = #{remakers,jdbcType=VARCHAR},
+      CID = #{cid,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
