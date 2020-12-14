@@ -1,14 +1,20 @@
 package com.sc.spring.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.sc.spring.entity.R;
 import com.sc.spring.entity.Result;
 import com.sc.spring.entity.SaleClientloss;
 import com.sc.spring.service.SaleClientlossService;
+import com.sun.deploy.panel.ITreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.math.BigDecimal;
+import java.util.SortedSet;
 
 /**
  * 类名：SaleClientlossController
@@ -32,10 +38,54 @@ public class SaleClientlossController {
 
         Result r=new Result();
         r.setAaData(pageInfo.getList());
-        r.setiTotalRecords(pageInfo.getList().size());
-        r.setiTotalDisplayRecords(pageInfo.getList().size());
+        r.setRecordsTotal(14);
+        r.setRecordsFiltered(14);
+
 
         return r;
     }
 
+
+    @RequestMapping("/add.do")
+    @ResponseBody
+    public R add(SaleClientloss saleClientloss) {
+        System.out.println("----"+saleClientloss);
+        if(saleClientloss!=null&&saleClientloss.getLossnum()!=null){
+            this.saleClientlossService.update(saleClientloss);
+            return new R(200,"修改成功！");
+        }else {
+            this.saleClientlossService.add(saleClientloss);
+            return new R(200, "添加成功！");
+        }
+    }
+
+    @RequestMapping("/del.do")
+    @ResponseBody
+    public R del(BigDecimal lossnum) {
+        System.out.println("--=======--"+lossnum);
+        this.saleClientlossService.del(lossnum);
+        return new R(200,"删除成功！");
+    }
+
+    @RequestMapping("/get.do")
+    @ResponseBody
+    public SaleClientloss get(BigDecimal lossnum) {
+        System.out.println("--=======--"+lossnum);
+        return this.saleClientlossService.get(lossnum);
+    }
+
+    @RequestMapping("/delAll.do")
+    @ResponseBody
+    public R delAll(String ids) {
+        if(ids!=null&&ids.length()>0){
+            String[] s = ids.split(",");
+            for (int i = 0; i <s.length ; i++) {
+                System.out.println("--=======--"+s[i]);
+                BigDecimal lossnum=new BigDecimal(s[i]);
+                this.saleClientlossService.del(lossnum);
+            }
+        }
+
+        return new R(200,"删除成功！");
+    }
 }

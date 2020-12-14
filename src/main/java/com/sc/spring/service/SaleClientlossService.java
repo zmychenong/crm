@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.sc.spring.entity.SaleClientloss;
 import com.sc.spring.entity.SysUseraccount;
 
+import java.math.BigDecimal;
+
 /**
  * 类名：SaleClientlossService
  * 描述：一段话描述类的信息
@@ -13,4 +15,12 @@ import com.sc.spring.entity.SysUseraccount;
  */
 public interface SaleClientlossService {
     public PageInfo<SaleClientloss> selectpage(int pageNum, int pageSize, SaleClientloss saleClientloss);
+
+    public void add(SaleClientloss saleClientloss);
+
+    public void del(BigDecimal lossnum);
+
+    public void update(SaleClientloss saleClientloss);
+
+    public SaleClientloss get(BigDecimal lossnum);
 }
