@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.PurOrdercompanyMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.PurOrdercompany">
+    <id column="GID" jdbcType="DECIMAL" property="gid" />
+    <result column="GNAME" jdbcType="VARCHAR" property="gname" />
+    <result column="GNIKENAME" jdbcType="VARCHAR" property="gnikename" />
+    <result column="PERSON" jdbcType="VARCHAR" property="person" />
+    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+    <result column="MOBILETEL" jdbcType="VARCHAR" property="mobiletel" />
+    <result column="CHUANZHEN" jdbcType="VARCHAR" property="chuanzhen" />
+    <result column="ADRESS" jdbcType="VARCHAR" property="adress" />
+    <result column="YOUBIAN" jdbcType="VARCHAR" property="youbian" />
+    <result column="MAIL" jdbcType="VARCHAR" property="mail" />
+    <result column="BANKENAME" jdbcType="VARCHAR" property="bankename" />
+    <result column="BANKID" jdbcType="DECIMAL" property="bankid" />
+    <result column="COMINDEX" jdbcType="VARCHAR" property="comindex" />
+    <result column="ISUSED" jdbcType="VARCHAR" property="isused" />
+    <result column="CTLPERSON" jdbcType="VARCHAR" property="ctlperson" />
+    <result column="REMAKERS" jdbcType="VARCHAR" property="remakers" />
+    <result column="CID" jdbcType="DECIMAL" property="cid" />
+    <result column="LASTNAME" jdbcType="TIMESTAMP" property="lastname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GID, GNAME, GNIKENAME, PERSON, TEL, MOBILETEL, CHUANZHEN, ADRESS, YOUBIAN, MAIL, 
+    BANKENAME, BANKID, COMINDEX, ISUSED, CTLPERSON, REMAKERS, CID, LASTNAME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.PurOrdercompanyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PUR_ORDERCOMPANY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_ORDERCOMPANY
+    where GID = #{gid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PUR_ORDERCOMPANY
+    where GID = #{gid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.PurOrdercompanyExample">
+    delete from PUR_ORDERCOMPANY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="GID" keyProperty="gid" parameterType="com.sc.spring.entity.PurOrdercompany" useGeneratedKeys="true">
+    insert into PUR_ORDERCOMPANY (GNAME, GNIKENAME, PERSON, 
+      TEL, MOBILETEL, CHUANZHEN, 
+      ADRESS, YOUBIAN, MAIL, 
+      BANKENAME, BANKID, COMINDEX, 
+      ISUSED, CTLPERSON, REMAKERS, 
+      CID, LASTNAME)
+    values (#{gname,jdbcType=VARCHAR}, #{gnikename,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{mobiletel,jdbcType=VARCHAR}, #{chuanzhen,jdbcType=VARCHAR}, 
+      #{adress,jdbcType=VARCHAR}, #{youbian,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
+      #{bankename,jdbcType=VARCHAR}, #{bankid,jdbcType=DECIMAL}, #{comindex,jdbcType=VARCHAR}, 
+      #{isused,jdbcType=VARCHAR}, #{ctlperson,jdbcType=VARCHAR}, #{remakers,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=DECIMAL}, #{lastname,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="GID" keyProperty="gid" parameterType="com.sc.spring.entity.PurOrdercompany" useGeneratedKeys="true">
+    insert into PUR_ORDERCOMPANY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gname != null">
+        GNAME,
+      </if>
+      <if test="gnikename != null">
+        GNIKENAME,
+      </if>
+      <if test="person != null">
+        PERSON,
+      </if>
+      <if test="tel != null">
+        TEL,
+      </if>
+      <if test="mobiletel != null">
+        MOBILETEL,
+      </if>
+      <if test="chuanzhen != null">
+        CHUANZHEN,
+      </if>
+      <if test="adress != null">
+        ADRESS,
+      </if>
+      <if test="youbian != null">
+        YOUBIAN,
+      </if>
+      <if test="mail != null">
+        MAIL,
+      </if>
+      <if test="bankename != null">
+        BANKENAME,
+      </if>
+      <if test="bankid != null">
+        BANKID,
+      </if>
+      <if test="comindex != null">
+        COMINDEX,
+      </if>
+      <if test="isused != null">
+        ISUSED,
+      </if>
+      <if test="ctlperson != null">
+        CTLPERSON,
+      </if>
+      <if test="remakers != null">
+        REMAKERS,
+      </if>
+      <if test="cid != null">
+        CID,
+      </if>
+      <if test="lastname != null">
+        LASTNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gname != null">
+        #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="gnikename != null">
+        #{gnikename,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiletel != null">
+        #{mobiletel,jdbcType=VARCHAR},
+      </if>
+      <if test="chuanzhen != null">
+        #{chuanzhen,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="youbian != null">
+        #{youbian,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="bankename != null">
+        #{bankename,jdbcType=VARCHAR},
+      </if>
+      <if test="bankid != null">
+        #{bankid,jdbcType=DECIMAL},
+      </if>
+      <if test="comindex != null">
+        #{comindex,jdbcType=VARCHAR},
+      </if>
+      <if test="isused != null">
+        #{isused,jdbcType=VARCHAR},
+      </if>
+      <if test="ctlperson != null">
+        #{ctlperson,jdbcType=VARCHAR},
+      </if>
+      <if test="remakers != null">
+        #{remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="lastname != null">
+        #{lastname,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.PurOrdercompanyExample" resultType="java.lang.Long">
+    select count(*) from PUR_ORDERCOMPANY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PUR_ORDERCOMPANY
+    <set>
+      <if test="record.gid != null">
+        GID = #{record.gid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gname != null">
+        GNAME = #{record.gname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gnikename != null">
+        GNIKENAME = #{record.gnikename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.person != null">
+        PERSON = #{record.person,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null">
+        TEL = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobiletel != null">
+        MOBILETEL = #{record.mobiletel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuanzhen != null">
+        CHUANZHEN = #{record.chuanzhen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adress != null">
+        ADRESS = #{record.adress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.youbian != null">
+        YOUBIAN = #{record.youbian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mail != null">
+        MAIL = #{record.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankename != null">
+        BANKENAME = #{record.bankename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankid != null">
+        BANKID = #{record.bankid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comindex != null">
+        COMINDEX = #{record.comindex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isused != null">
+        ISUSED = #{record.isused,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctlperson != null">
+        CTLPERSON = #{record.ctlperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remakers != null">
+        REMAKERS = #{record.remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null">
+        CID = #{record.cid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastname != null">
+        LASTNAME = #{record.lastname,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PUR_ORDERCOMPANY
+    set GID = #{record.gid,jdbcType=DECIMAL},
+      GNAME = #{record.gname,jdbcType=VARCHAR},
+      GNIKENAME = #{record.gnikename,jdbcType=VARCHAR},
+      PERSON = #{record.person,jdbcType=VARCHAR},
+      TEL = #{record.tel,jdbcType=VARCHAR},
+      MOBILETEL = #{record.mobiletel,jdbcType=VARCHAR},
+      CHUANZHEN = #{record.chuanzhen,jdbcType=VARCHAR},
+      ADRESS = #{record.adress,jdbcType=VARCHAR},
+      YOUBIAN = #{record.youbian,jdbcType=VARCHAR},
+      MAIL = #{record.mail,jdbcType=VARCHAR},
+      BANKENAME = #{record.bankename,jdbcType=VARCHAR},
+      BANKID = #{record.bankid,jdbcType=DECIMAL},
+      COMINDEX = #{record.comindex,jdbcType=VARCHAR},
+      ISUSED = #{record.isused,jdbcType=VARCHAR},
+      CTLPERSON = #{record.ctlperson,jdbcType=VARCHAR},
+      REMAKERS = #{record.remakers,jdbcType=VARCHAR},
+      CID = #{record.cid,jdbcType=DECIMAL},
+      LASTNAME = #{record.lastname,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.PurOrdercompany">
+    update PUR_ORDERCOMPANY
+    <set>
+      <if test="gname != null">
+        GNAME = #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="gnikename != null">
+        GNIKENAME = #{gnikename,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null">
+        PERSON = #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiletel != null">
+        MOBILETEL = #{mobiletel,jdbcType=VARCHAR},
+      </if>
+      <if test="chuanzhen != null">
+        CHUANZHEN = #{chuanzhen,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        ADRESS = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="youbian != null">
+        YOUBIAN = #{youbian,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        MAIL = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="bankename != null">
+        BANKENAME = #{bankename,jdbcType=VARCHAR},
+      </if>
+      <if test="bankid != null">
+        BANKID = #{bankid,jdbcType=DECIMAL},
+      </if>
+      <if test="comindex != null">
+        COMINDEX = #{comindex,jdbcType=VARCHAR},
+      </if>
+      <if test="isused != null">
+        ISUSED = #{isused,jdbcType=VARCHAR},
+      </if>
+      <if test="ctlperson != null">
+        CTLPERSON = #{ctlperson,jdbcType=VARCHAR},
+      </if>
+      <if test="remakers != null">
+        REMAKERS = #{remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        CID = #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="lastname != null">
+        LASTNAME = #{lastname,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where GID = #{gid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.PurOrdercompany">
+    update PUR_ORDERCOMPANY
+    set GNAME = #{gname,jdbcType=VARCHAR},
+      GNIKENAME = #{gnikename,jdbcType=VARCHAR},
+      PERSON = #{person,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      MOBILETEL = #{mobiletel,jdbcType=VARCHAR},
+      CHUANZHEN = #{chuanzhen,jdbcType=VARCHAR},
+      ADRESS = #{adress,jdbcType=VARCHAR},
+      YOUBIAN = #{youbian,jdbcType=VARCHAR},
+      MAIL = #{mail,jdbcType=VARCHAR},
+      BANKENAME = #{bankename,jdbcType=VARCHAR},
+      BANKID = #{bankid,jdbcType=DECIMAL},
+      COMINDEX = #{comindex,jdbcType=VARCHAR},
+      ISUSED = #{isused,jdbcType=VARCHAR},
+      CTLPERSON = #{ctlperson,jdbcType=VARCHAR},
+      REMAKERS = #{remakers,jdbcType=VARCHAR},
+      CID = #{cid,jdbcType=DECIMAL},
+      LASTNAME = #{lastname,jdbcType=TIMESTAMP}
+    where GID = #{gid,jdbcType=DECIMAL}
+  </update>
+</mapper>

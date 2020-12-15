@@ -1,5 +1,7 @@
 package com.sc.spring.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,6 +22,7 @@ public class SysUseraccount implements Serializable {
 
     private String accountState;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastchangeTime;
 
     private String userSalt;

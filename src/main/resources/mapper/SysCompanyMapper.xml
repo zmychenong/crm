@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.SysCompanyMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.SysCompany">
+    <id column="SYS_COMPANY_ID" jdbcType="DECIMAL" property="sysCompanyId" />
+    <result column="SYS_COMPANY_NAME" jdbcType="VARCHAR" property="sysCompanyName" />
+    <result column="SYS_COMPANY_DM" jdbcType="VARCHAR" property="sysCompanyDm" />
+    <result column="SYS_COMPANY_@" jdbcType="VARCHAR" property="sysCompany" />
+    <result column="SYS_COMPANY_DH" jdbcType="VARCHAR" property="sysCompanyDh" />
+    <result column="SYS_COMPANY_HONG" jdbcType="VARCHAR" property="sysCompanyHong" />
+    <result column="SYS_COMPANY_PHONE" jdbcType="VARCHAR" property="sysCompanyPhone" />
+    <result column="SYS_COMPANY_YPHONE" jdbcType="VARCHAR" property="sysCompanyYphone" />
+    <result column="SYS_COMPANY_CZ" jdbcType="VARCHAR" property="sysCompanyCz" />
+    <result column="SYS_COMPANY_YH" jdbcType="VARCHAR" property="sysCompanyYh" />
+    <result column="SYS_COMPANY_YHZH" jdbcType="VARCHAR" property="sysCompanyYhzh" />
+    <result column="SYS_COMPANY_YXW" jdbcType="VARCHAR" property="sysCompanyYxw" />
+    <result column="SYS_COMPANY_BZXX" jdbcType="VARCHAR" property="sysCompanyBzxx" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SYS_COMPANY_ID, SYS_COMPANY_NAME, SYS_COMPANY_DM, SYS_COMPANY_@, SYS_COMPANY_DH, 
+    SYS_COMPANY_HONG, SYS_COMPANY_PHONE, SYS_COMPANY_YPHONE, SYS_COMPANY_CZ, SYS_COMPANY_YH, 
+    SYS_COMPANY_YHZH, SYS_COMPANY_YXW, SYS_COMPANY_BZXX, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.SysCompanyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_COMPANY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_COMPANY
+    where SYS_COMPANY_ID = #{sysCompanyId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SYS_COMPANY
+    where SYS_COMPANY_ID = #{sysCompanyId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.SysCompanyExample">
+    delete from SYS_COMPANY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="SYS_COMPANY_ID" keyProperty="sysCompanyId" parameterType="com.sc.spring.entity.SysCompany" useGeneratedKeys="true">
+    insert into SYS_COMPANY (SYS_COMPANY_NAME, SYS_COMPANY_DM, SYS_COMPANY_@, 
+      SYS_COMPANY_DH, SYS_COMPANY_HONG, SYS_COMPANY_PHONE, 
+      SYS_COMPANY_YPHONE, SYS_COMPANY_CZ, SYS_COMPANY_YH, 
+      SYS_COMPANY_YHZH, SYS_COMPANY_YXW, SYS_COMPANY_BZXX, 
+      LASTTIME)
+    values (#{sysCompanyName,jdbcType=VARCHAR}, #{sysCompanyDm,jdbcType=VARCHAR}, #{sysCompany,jdbcType=VARCHAR}, 
+      #{sysCompanyDh,jdbcType=VARCHAR}, #{sysCompanyHong,jdbcType=VARCHAR}, #{sysCompanyPhone,jdbcType=VARCHAR}, 
+      #{sysCompanyYphone,jdbcType=VARCHAR}, #{sysCompanyCz,jdbcType=VARCHAR}, #{sysCompanyYh,jdbcType=VARCHAR}, 
+      #{sysCompanyYhzh,jdbcType=VARCHAR}, #{sysCompanyYxw,jdbcType=VARCHAR}, #{sysCompanyBzxx,jdbcType=VARCHAR}, 
+      #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="SYS_COMPANY_ID" keyProperty="sysCompanyId" parameterType="com.sc.spring.entity.SysCompany" useGeneratedKeys="true">
+    insert into SYS_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysCompanyName != null">
+        SYS_COMPANY_NAME,
+      </if>
+      <if test="sysCompanyDm != null">
+        SYS_COMPANY_DM,
+      </if>
+      <if test="sysCompany != null">
+        SYS_COMPANY_@,
+      </if>
+      <if test="sysCompanyDh != null">
+        SYS_COMPANY_DH,
+      </if>
+      <if test="sysCompanyHong != null">
+        SYS_COMPANY_HONG,
+      </if>
+      <if test="sysCompanyPhone != null">
+        SYS_COMPANY_PHONE,
+      </if>
+      <if test="sysCompanyYphone != null">
+        SYS_COMPANY_YPHONE,
+      </if>
+      <if test="sysCompanyCz != null">
+        SYS_COMPANY_CZ,
+      </if>
+      <if test="sysCompanyYh != null">
+        SYS_COMPANY_YH,
+      </if>
+      <if test="sysCompanyYhzh != null">
+        SYS_COMPANY_YHZH,
+      </if>
+      <if test="sysCompanyYxw != null">
+        SYS_COMPANY_YXW,
+      </if>
+      <if test="sysCompanyBzxx != null">
+        SYS_COMPANY_BZXX,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysCompanyName != null">
+        #{sysCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyDm != null">
+        #{sysCompanyDm,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompany != null">
+        #{sysCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyDh != null">
+        #{sysCompanyDh,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyHong != null">
+        #{sysCompanyHong,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyPhone != null">
+        #{sysCompanyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYphone != null">
+        #{sysCompanyYphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyCz != null">
+        #{sysCompanyCz,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYh != null">
+        #{sysCompanyYh,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYhzh != null">
+        #{sysCompanyYhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYxw != null">
+        #{sysCompanyYxw,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyBzxx != null">
+        #{sysCompanyBzxx,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.SysCompanyExample" resultType="java.lang.Long">
+    select count(*) from SYS_COMPANY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYS_COMPANY
+    <set>
+      <if test="record.sysCompanyId != null">
+        SYS_COMPANY_ID = #{record.sysCompanyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sysCompanyName != null">
+        SYS_COMPANY_NAME = #{record.sysCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyDm != null">
+        SYS_COMPANY_DM = #{record.sysCompanyDm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompany != null">
+        SYS_COMPANY_@ = #{record.sysCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyDh != null">
+        SYS_COMPANY_DH = #{record.sysCompanyDh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyHong != null">
+        SYS_COMPANY_HONG = #{record.sysCompanyHong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyPhone != null">
+        SYS_COMPANY_PHONE = #{record.sysCompanyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyYphone != null">
+        SYS_COMPANY_YPHONE = #{record.sysCompanyYphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyCz != null">
+        SYS_COMPANY_CZ = #{record.sysCompanyCz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyYh != null">
+        SYS_COMPANY_YH = #{record.sysCompanyYh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyYhzh != null">
+        SYS_COMPANY_YHZH = #{record.sysCompanyYhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyYxw != null">
+        SYS_COMPANY_YXW = #{record.sysCompanyYxw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCompanyBzxx != null">
+        SYS_COMPANY_BZXX = #{record.sysCompanyBzxx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYS_COMPANY
+    set SYS_COMPANY_ID = #{record.sysCompanyId,jdbcType=DECIMAL},
+      SYS_COMPANY_NAME = #{record.sysCompanyName,jdbcType=VARCHAR},
+      SYS_COMPANY_DM = #{record.sysCompanyDm,jdbcType=VARCHAR},
+      SYS_COMPANY_@ = #{record.sysCompany,jdbcType=VARCHAR},
+      SYS_COMPANY_DH = #{record.sysCompanyDh,jdbcType=VARCHAR},
+      SYS_COMPANY_HONG = #{record.sysCompanyHong,jdbcType=VARCHAR},
+      SYS_COMPANY_PHONE = #{record.sysCompanyPhone,jdbcType=VARCHAR},
+      SYS_COMPANY_YPHONE = #{record.sysCompanyYphone,jdbcType=VARCHAR},
+      SYS_COMPANY_CZ = #{record.sysCompanyCz,jdbcType=VARCHAR},
+      SYS_COMPANY_YH = #{record.sysCompanyYh,jdbcType=VARCHAR},
+      SYS_COMPANY_YHZH = #{record.sysCompanyYhzh,jdbcType=VARCHAR},
+      SYS_COMPANY_YXW = #{record.sysCompanyYxw,jdbcType=VARCHAR},
+      SYS_COMPANY_BZXX = #{record.sysCompanyBzxx,jdbcType=VARCHAR},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.SysCompany">
+    update SYS_COMPANY
+    <set>
+      <if test="sysCompanyName != null">
+        SYS_COMPANY_NAME = #{sysCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyDm != null">
+        SYS_COMPANY_DM = #{sysCompanyDm,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompany != null">
+        SYS_COMPANY_@ = #{sysCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyDh != null">
+        SYS_COMPANY_DH = #{sysCompanyDh,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyHong != null">
+        SYS_COMPANY_HONG = #{sysCompanyHong,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyPhone != null">
+        SYS_COMPANY_PHONE = #{sysCompanyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYphone != null">
+        SYS_COMPANY_YPHONE = #{sysCompanyYphone,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyCz != null">
+        SYS_COMPANY_CZ = #{sysCompanyCz,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYh != null">
+        SYS_COMPANY_YH = #{sysCompanyYh,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYhzh != null">
+        SYS_COMPANY_YHZH = #{sysCompanyYhzh,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyYxw != null">
+        SYS_COMPANY_YXW = #{sysCompanyYxw,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCompanyBzxx != null">
+        SYS_COMPANY_BZXX = #{sysCompanyBzxx,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SYS_COMPANY_ID = #{sysCompanyId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.SysCompany">
+    update SYS_COMPANY
+    set SYS_COMPANY_NAME = #{sysCompanyName,jdbcType=VARCHAR},
+      SYS_COMPANY_DM = #{sysCompanyDm,jdbcType=VARCHAR},
+      SYS_COMPANY_@ = #{sysCompany,jdbcType=VARCHAR},
+      SYS_COMPANY_DH = #{sysCompanyDh,jdbcType=VARCHAR},
+      SYS_COMPANY_HONG = #{sysCompanyHong,jdbcType=VARCHAR},
+      SYS_COMPANY_PHONE = #{sysCompanyPhone,jdbcType=VARCHAR},
+      SYS_COMPANY_YPHONE = #{sysCompanyYphone,jdbcType=VARCHAR},
+      SYS_COMPANY_CZ = #{sysCompanyCz,jdbcType=VARCHAR},
+      SYS_COMPANY_YH = #{sysCompanyYh,jdbcType=VARCHAR},
+      SYS_COMPANY_YHZH = #{sysCompanyYhzh,jdbcType=VARCHAR},
+      SYS_COMPANY_YXW = #{sysCompanyYxw,jdbcType=VARCHAR},
+      SYS_COMPANY_BZXX = #{sysCompanyBzxx,jdbcType=VARCHAR},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where SYS_COMPANY_ID = #{sysCompanyId,jdbcType=DECIMAL}
+  </update>
+</mapper>

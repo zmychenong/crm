@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.spring.mapper.PurOrderMapper">
+  <resultMap id="BaseResultMap" type="com.sc.spring.entity.PurOrder">
+    <id column="OID" jdbcType="DECIMAL" property="oid" />
+    <result column="THEYM" jdbcType="VARCHAR" property="theym" />
+    <result column="ORDERDATE" jdbcType="TIMESTAMP" property="orderdate" />
+    <result column="GID" jdbcType="DECIMAL" property="gid" />
+    <result column="MONEY" jdbcType="VARCHAR" property="money" />
+    <result column="FAPIAOID" jdbcType="DECIMAL" property="fapiaoid" />
+    <result column="FUKUANSTATU" jdbcType="VARCHAR" property="fukuanstatu" />
+    <result column="OJINZHAN" jdbcType="VARCHAR" property="ojinzhan" />
+    <result column="GIVEDATE" jdbcType="TIMESTAMP" property="givedate" />
+    <result column="GIVEPLACE" jdbcType="VARCHAR" property="giveplace" />
+    <result column="GIVEWAY" jdbcType="VARCHAR" property="giveway" />
+    <result column="CONTRONER" jdbcType="VARCHAR" property="controner" />
+    <result column="REMAKERS" jdbcType="VARCHAR" property="remakers" />
+    <result column="CID" jdbcType="DECIMAL" property="cid" />
+    <result column="LASTTIME" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    OID, THEYM, ORDERDATE, GID, MONEY, FAPIAOID, FUKUANSTATU, OJINZHAN, GIVEDATE, GIVEPLACE, 
+    GIVEWAY, CONTRONER, REMAKERS, CID, LASTTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.sc.spring.entity.PurOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PUR_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PUR_ORDER
+    where OID = #{oid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PUR_ORDER
+    where OID = #{oid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sc.spring.entity.PurOrderExample">
+    delete from PUR_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="OID" keyProperty="oid" parameterType="com.sc.spring.entity.PurOrder" useGeneratedKeys="true">
+    insert into PUR_ORDER (THEYM, ORDERDATE, GID, 
+      MONEY, FAPIAOID, FUKUANSTATU, 
+      OJINZHAN, GIVEDATE, GIVEPLACE, 
+      GIVEWAY, CONTRONER, REMAKERS, 
+      CID, LASTTIME)
+    values (#{theym,jdbcType=VARCHAR}, #{orderdate,jdbcType=TIMESTAMP}, #{gid,jdbcType=DECIMAL}, 
+      #{money,jdbcType=VARCHAR}, #{fapiaoid,jdbcType=DECIMAL}, #{fukuanstatu,jdbcType=VARCHAR}, 
+      #{ojinzhan,jdbcType=VARCHAR}, #{givedate,jdbcType=TIMESTAMP}, #{giveplace,jdbcType=VARCHAR}, 
+      #{giveway,jdbcType=VARCHAR}, #{controner,jdbcType=VARCHAR}, #{remakers,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=DECIMAL}, #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="OID" keyProperty="oid" parameterType="com.sc.spring.entity.PurOrder" useGeneratedKeys="true">
+    insert into PUR_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="theym != null">
+        THEYM,
+      </if>
+      <if test="orderdate != null">
+        ORDERDATE,
+      </if>
+      <if test="gid != null">
+        GID,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="fapiaoid != null">
+        FAPIAOID,
+      </if>
+      <if test="fukuanstatu != null">
+        FUKUANSTATU,
+      </if>
+      <if test="ojinzhan != null">
+        OJINZHAN,
+      </if>
+      <if test="givedate != null">
+        GIVEDATE,
+      </if>
+      <if test="giveplace != null">
+        GIVEPLACE,
+      </if>
+      <if test="giveway != null">
+        GIVEWAY,
+      </if>
+      <if test="controner != null">
+        CONTRONER,
+      </if>
+      <if test="remakers != null">
+        REMAKERS,
+      </if>
+      <if test="cid != null">
+        CID,
+      </if>
+      <if test="lasttime != null">
+        LASTTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="theym != null">
+        #{theym,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdate != null">
+        #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="fapiaoid != null">
+        #{fapiaoid,jdbcType=DECIMAL},
+      </if>
+      <if test="fukuanstatu != null">
+        #{fukuanstatu,jdbcType=VARCHAR},
+      </if>
+      <if test="ojinzhan != null">
+        #{ojinzhan,jdbcType=VARCHAR},
+      </if>
+      <if test="givedate != null">
+        #{givedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="giveplace != null">
+        #{giveplace,jdbcType=VARCHAR},
+      </if>
+      <if test="giveway != null">
+        #{giveway,jdbcType=VARCHAR},
+      </if>
+      <if test="controner != null">
+        #{controner,jdbcType=VARCHAR},
+      </if>
+      <if test="remakers != null">
+        #{remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sc.spring.entity.PurOrderExample" resultType="java.lang.Long">
+    select count(*) from PUR_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update PUR_ORDER
+    <set>
+      <if test="record.oid != null">
+        OID = #{record.oid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.theym != null">
+        THEYM = #{record.theym,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderdate != null">
+        ORDERDATE = #{record.orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gid != null">
+        GID = #{record.gid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.money != null">
+        MONEY = #{record.money,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fapiaoid != null">
+        FAPIAOID = #{record.fapiaoid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fukuanstatu != null">
+        FUKUANSTATU = #{record.fukuanstatu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ojinzhan != null">
+        OJINZHAN = #{record.ojinzhan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.givedate != null">
+        GIVEDATE = #{record.givedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.giveplace != null">
+        GIVEPLACE = #{record.giveplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giveway != null">
+        GIVEWAY = #{record.giveway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controner != null">
+        CONTRONER = #{record.controner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remakers != null">
+        REMAKERS = #{record.remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null">
+        CID = #{record.cid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lasttime != null">
+        LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update PUR_ORDER
+    set OID = #{record.oid,jdbcType=DECIMAL},
+      THEYM = #{record.theym,jdbcType=VARCHAR},
+      ORDERDATE = #{record.orderdate,jdbcType=TIMESTAMP},
+      GID = #{record.gid,jdbcType=DECIMAL},
+      MONEY = #{record.money,jdbcType=VARCHAR},
+      FAPIAOID = #{record.fapiaoid,jdbcType=DECIMAL},
+      FUKUANSTATU = #{record.fukuanstatu,jdbcType=VARCHAR},
+      OJINZHAN = #{record.ojinzhan,jdbcType=VARCHAR},
+      GIVEDATE = #{record.givedate,jdbcType=TIMESTAMP},
+      GIVEPLACE = #{record.giveplace,jdbcType=VARCHAR},
+      GIVEWAY = #{record.giveway,jdbcType=VARCHAR},
+      CONTRONER = #{record.controner,jdbcType=VARCHAR},
+      REMAKERS = #{record.remakers,jdbcType=VARCHAR},
+      CID = #{record.cid,jdbcType=DECIMAL},
+      LASTTIME = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sc.spring.entity.PurOrder">
+    update PUR_ORDER
+    <set>
+      <if test="theym != null">
+        THEYM = #{theym,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdate != null">
+        ORDERDATE = #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gid != null">
+        GID = #{gid,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="fapiaoid != null">
+        FAPIAOID = #{fapiaoid,jdbcType=DECIMAL},
+      </if>
+      <if test="fukuanstatu != null">
+        FUKUANSTATU = #{fukuanstatu,jdbcType=VARCHAR},
+      </if>
+      <if test="ojinzhan != null">
+        OJINZHAN = #{ojinzhan,jdbcType=VARCHAR},
+      </if>
+      <if test="givedate != null">
+        GIVEDATE = #{givedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="giveplace != null">
+        GIVEPLACE = #{giveplace,jdbcType=VARCHAR},
+      </if>
+      <if test="giveway != null">
+        GIVEWAY = #{giveway,jdbcType=VARCHAR},
+      </if>
+      <if test="controner != null">
+        CONTRONER = #{controner,jdbcType=VARCHAR},
+      </if>
+      <if test="remakers != null">
+        REMAKERS = #{remakers,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        CID = #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="lasttime != null">
+        LASTTIME = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OID = #{oid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sc.spring.entity.PurOrder">
+    update PUR_ORDER
+    set THEYM = #{theym,jdbcType=VARCHAR},
+      ORDERDATE = #{orderdate,jdbcType=TIMESTAMP},
+      GID = #{gid,jdbcType=DECIMAL},
+      MONEY = #{money,jdbcType=VARCHAR},
+      FAPIAOID = #{fapiaoid,jdbcType=DECIMAL},
+      FUKUANSTATU = #{fukuanstatu,jdbcType=VARCHAR},
+      OJINZHAN = #{ojinzhan,jdbcType=VARCHAR},
+      GIVEDATE = #{givedate,jdbcType=TIMESTAMP},
+      GIVEPLACE = #{giveplace,jdbcType=VARCHAR},
+      GIVEWAY = #{giveway,jdbcType=VARCHAR},
+      CONTRONER = #{controner,jdbcType=VARCHAR},
+      REMAKERS = #{remakers,jdbcType=VARCHAR},
+      CID = #{cid,jdbcType=DECIMAL},
+      LASTTIME = #{lasttime,jdbcType=TIMESTAMP}
+    where OID = #{oid,jdbcType=DECIMAL}
+  </update>
+</mapper>
