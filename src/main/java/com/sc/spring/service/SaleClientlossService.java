@@ -1,9 +1,6 @@
 package com.sc.spring.service;
-
 import com.github.pagehelper.PageInfo;
 import com.sc.spring.entity.SaleClientloss;
-import com.sc.spring.entity.SysUseraccount;
-
 import java.math.BigDecimal;
 
 /**
