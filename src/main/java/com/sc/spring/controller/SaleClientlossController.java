@@ -42,7 +42,11 @@ public class SaleClientlossController {
 
         JSONArray jsonarray = JSONArray.parseArray(aoData);
         int sEcho = 1; //当前第几页
-        String sSearch = null; // 搜索
+
+        String datemin = null; //开始日期
+        String datemax = null; //结束日期
+        String search = null; // 搜索
+
         int iDisplayStart = 0; // 起始索引
         int iDisplayLength = 0; // 每页显示的行数
 
@@ -60,13 +64,22 @@ public class SaleClientlossController {
             {
                 iDisplayLength = obj.getIntValue("value");
             }
-            if (obj.get("name").equals("sSearch"))
+            if (obj.get("name").equals("search"))
             {
-                sSearch = obj.getString("value");
+                search = obj.getString("value");
+            }
+            if (obj.get("name").equals("datemin"))
+            {
+                datemin = obj.getString("value");
+            }
+
+            if (obj.get("name").equals("datemax"))
+            {
+                datemax = obj.getString("value");
             }
         }
 
-        PageInfo<SaleClientloss> pageInfo = saleClientlossService.selectpage(iDisplayStart/iDisplayLength+1, iDisplayLength, null);
+        PageInfo<SaleClientloss> pageInfo = saleClientlossService.selectpage(iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
 
 
         ResultNew resultNew=new ResultNew();
