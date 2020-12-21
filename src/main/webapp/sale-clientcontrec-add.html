@@ -32,19 +32,19 @@
 <article class="page-container">
 	<form action=""  method="post" class="form form-horizontal" id="form-member-add">
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>客户编号：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联系标题：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="clientnum" name="clientnum">
+                <input type="text" class="input-text" value="" placeholder="" id="title" name="title">
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>处理方式：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联系时间：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="hidden" class="input-text" value="" placeholder="" id="lossnum" name="lossnum">
-                <input type="text" class="input-text" value="" placeholder="" id="handleway" name="handleway">
+                <input type="hidden" class="input-text" value="" placeholder="" id="recnum" name="recnum">
+                <input type="text" class="input-text" value="" placeholder="" id="time" name="time">
             </div>
         </div>
-        <div class="row cl">
+        <!--<div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>处理措施：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="" id="measures" name="measures">
@@ -84,7 +84,7 @@
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="" id="lasttime" name="lasttime">
             </div>
-        </div>
+        </div>-->
 		<!--<div class="row cl">-->
 			<!--<label class="form-label col-xs-4 col-sm-3">所在城市：</label>-->
 			<!--<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">-->
@@ -137,24 +137,24 @@ function RequestParameter(){
 $(function(){
 
 	//根据传递过来的主键编号获取对象，显示原来的信息
-	var lossnum=RequestParameter()["lossnum"];
-	if(lossnum!='undefined'){
-		$("#lossnum").val(lossnum);
+	var recnum=RequestParameter()["recnum"];
+	if(recnum!='undefined'){
+		$("#recnum").val(recnum);
 
 		$.ajax({
 			type: 'post',
-			url: "saleclientloss/get.do" ,
-			data: "lossnum="+lossnum,                       //修改方法部分代码
+			url: "saleclientcontrec/get.do" ,
+			data: "recnum="+recnum,                       //修改方法部分代码
 			dataType:"json",
 			success: function(obj){
 				console.log(obj);
-				$("#handleway").val(obj.handleway);
-                $("#opnum").val(obj.opnum);
-                $("#lasttime").val(obj.lasttime);
+				$("#time").val(obj.time);
+                $("#title").val(obj.title);
+                /*$("#lasttime").val(obj.lasttime);
                 $("#whetherloss").val(obj.whetherloss);
                 $("#measures").val(obj.measures);
                 $("#clientnum").val(obj.clientnum);
-                $("#sysnum").val(obj.sysnum);
+                $("#sysnum").val(obj.sysnum);*/
 			}
 		});
 
@@ -170,14 +170,14 @@ $(function(){
 		rules:{
 			/*handleway:{
 				required:true,
-			},*/
+			},
             opnum:{
                 required:true,
-            },
-            /*lasttime:{
+            },*/
+            /*lasttime:{                     //必填设置
                 required:true,
             },*/
-            whetherloss:{                   //必填设置
+            /*whetherloss:{
                 required:true,
             }
             ,
@@ -189,14 +189,14 @@ $(function(){
             },
             sysnum:{
                 required:true,
-            }
+            }*/
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
 			$("#form-member-add").ajaxSubmit({
-				url: "saleclientloss/add.do",
+				url: "saleclientcontrec/add.do",
 				type: "post",
 				dataType:"json",
 				success: function(r) { // data 保存提交后返回的数据，一般为 json 数据
