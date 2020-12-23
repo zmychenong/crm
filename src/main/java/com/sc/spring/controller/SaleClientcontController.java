@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
-
 /**
  * 类名：SaleClientlossController
  * 描述：一段话描述类的信息
