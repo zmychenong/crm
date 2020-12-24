@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
 /**
@@ -32,12 +33,12 @@ public class SaleClientcontrecController {
 
     @RequestMapping("/select.do")
     @ResponseBody
-    public ResultNew select(@RequestParam String aoData){
+    public ResultNew select(@RequestParam String aoData, HttpSession session){
         System.out.println("+++++++++++++++++++++++++"+aoData);
 
         JSONArray jsonarray = JSONArray.parseArray(aoData);
         int sEcho = 1; //当前第几页
-
+        BigDecimal clientnum=null;
         String datemin = null; //开始日期
         String datemax = null; //结束日期
         String search = null; // 搜索
@@ -47,6 +48,10 @@ public class SaleClientcontrecController {
 
         for (int i = 0; i < jsonarray.size(); i++) {
             JSONObject obj = (JSONObject) jsonarray.get(i);
+            if (obj.get("name").equals("clientnum"))
+            {
+                clientnum = obj.getBigDecimal("value");
+            }
             if (obj.get("name").equals("sEcho"))
             {
                 sEcho = obj.getIntValue("value");
@@ -73,7 +78,9 @@ public class SaleClientcontrecController {
                 datemax = obj.getString("value");
             }
         }
-        PageInfo<SaleClientcontrec> pageInfo = saleClientcontrecService.selectpage(iDisplayStart, iDisplayLength, null,datemin,datemax,search);
+        session.setAttribute("clientnum",clientnum);
+        System.out.println("44444444444444444444444"+clientnum);
+        PageInfo<SaleClientcontrec> pageInfo = saleClientcontrecService.selectpage(clientnum,iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
 
         ResultNew resultNew=new ResultNew();
         resultNew.setsEcho(sEcho);// 当前第几页
@@ -87,12 +94,13 @@ public class SaleClientcontrecController {
 
     @RequestMapping("/add.do")
     @ResponseBody
-    public R add(SaleClientcontrec saleClientcontrec) {
+    public R add(SaleClientcontrec saleClientcontrec,HttpSession session) {
         System.out.println("----"+saleClientcontrec);
         if(saleClientcontrec!=null&&saleClientcontrec.getRecnum()!=null){
             this.saleClientcontrecService.update(saleClientcontrec);
             return new R(200,"修改成功！");
         }else {
+            saleClientcontrec.setClientnum((BigDecimal) session.getAttribute("clientnum"));
             this.saleClientcontrecService.add(saleClientcontrec);
             return new R(200, "添加成功！");
         }

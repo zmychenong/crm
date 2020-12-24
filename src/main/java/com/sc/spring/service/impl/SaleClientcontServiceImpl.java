@@ -47,9 +47,7 @@ public class SaleClientcontServiceImpl implements SaleClientcontService {
                 e.printStackTrace();
             }
         }
-        if(clientnum!=null){
-            criteria.andClientnumEqualTo(clientnum);
-        }
+
         if(search!=null&&!search.equals("")){
             SaleClientcontExample.Criteria criteria1=example.createCriteria();
             criteria1.andContnameLike("%"+search+"%");
@@ -59,6 +57,9 @@ public class SaleClientcontServiceImpl implements SaleClientcontService {
             SaleClientcontExample.Criteria criteria2=example.createCriteria();
             criteria2.andAdressLike("%"+search+"%");
             example.or(criteria2);
+        }
+        else {
+            criteria.andClientnumEqualTo(clientnum);
         }
 
 

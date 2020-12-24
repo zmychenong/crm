@@ -8,12 +8,15 @@ import com.sc.spring.entity.Result;
 import com.sc.spring.entity.ResultNew;
 import com.sc.spring.entity.SaleClientcont;
 import com.sc.spring.service.SaleClientcontService;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 /**
  * 类名：SaleClientlossController
@@ -31,7 +34,7 @@ public class SaleClientcontController {
 
     @RequestMapping("/select.do")
     @ResponseBody
-    public ResultNew select(@RequestParam String aoData){
+    public ResultNew select(@RequestParam String aoData,HttpSession session){
         System.out.println("+++++++++++++++++++++++++"+aoData);
 
         JSONArray jsonarray = JSONArray.parseArray(aoData);
@@ -41,12 +44,18 @@ public class SaleClientcontController {
         String datemax = null; //结束日期
         String search = null; // 搜索
 
+
         int iDisplayStart = 0; // 起始索引
         int iDisplayLength = 0; // 每页显示的行数
 
+
+
         for (int i = 0; i < jsonarray.size(); i++) {
             JSONObject obj = (JSONObject) jsonarray.get(i);
-            clientnum = obj.getBigDecimal("clientnum");
+            if (obj.get("name").equals("clientnum"))
+            {
+                clientnum = obj.getBigDecimal("value");
+            }
             if (obj.get("name").equals("sEcho"))
             {
                 sEcho = obj.getIntValue("value");
@@ -73,9 +82,9 @@ public class SaleClientcontController {
                 datemax = obj.getString("value");
             }
         }
-
-
-        PageInfo<SaleClientcont> pageInfo = saleClientcontService.selectpage(clientnum, iDisplayStart, iDisplayLength, null,datemin,datemax,search);
+        session.setAttribute("clientnum",clientnum);
+        System.out.println("3333333333333333333333"+clientnum);
+        PageInfo<SaleClientcont> pageInfo = saleClientcontService.selectpage(clientnum, iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
 
         ResultNew resultNew=new ResultNew();
         resultNew.setsEcho(sEcho);// 当前第几页
@@ -88,12 +97,13 @@ public class SaleClientcontController {
 
     @RequestMapping("/add.do")
     @ResponseBody
-    public R add(SaleClientcont saleClientcont) {
+    public R add(SaleClientcont saleClientcont,HttpSession session) {
         System.out.println("----"+saleClientcont);
         if(saleClientcont!=null&&saleClientcont.getContnum()!=null){
             this.saleClientcontService.update(saleClientcont);
             return new R(200,"修改成功！");
         }else {
+            saleClientcont.setClientnum((BigDecimal) session.getAttribute("clientnum"));
             this.saleClientcontService.add(saleClientcont);
             return new R(200, "添加成功！");
         }

@@ -24,6 +24,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 客户中心 <span class="c-gray en">&gt;</span> 客户管理 <a id="btnrefresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+	<a style="color: #00a65a" href="sale-clientmes-list.html"><i class="Hui-iconfont">返回客户信息</i></a>
 	<form id="myform">
 		<div class="text-c"> 日期范围：
 			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
@@ -34,7 +35,7 @@
 		</div>
 	</form>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-        <a href="javascript:;" onclick="member_add('添加用户','sale-clientmes-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+        <a href="javascript:;" onclick="member_add('添加客户信息','sale-clientmes-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加客户信息</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -70,7 +71,6 @@ $(function(){
     var startTime=$("#datemin").val();
     var endTime=$("#datemax").val();
     var search=$("#search").val();
-	var clientnum=$("#clientnum").val();
 
 	$('.table-sort').dataTable({
 		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -88,22 +88,24 @@ $(function(){
 			{"data": "","bSortable":false,"render":function(data,type,row){
 				return '<td class="td-manage">' +
 						'<a title="详情" href="javascript:;" onclick="member_detail(\'详情\',\'sale-clientmes-show.html\','+row.clientnum+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe622;</i></a> ' +
-						'<a title="联系人" href="sale-clientcont-list.html?clientnumn=row.clientnum" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe60d;</i></a> ' +
-						'<a title="联系记录" href="sale-clientcontrec-list.html?clientnum=row.clientnum" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe61a;</i></a> ' +
+						'<a title="联系人" href="sale-clientcont-list.html?clientnum='+row.clientnum+'"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe60d;</i></a> ' +
+						'<a title="联系记录" href="sale-clientcontrec-list.html?clientnum='+row.clientnum+'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe61a;</i></a> ' +
 						/*'<a title="联系人" data-href="sale-clientcont-list.html" href="javascript:;" )" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe60d;</i></a> ' +*/
-						'<a title="反馈记录" href="salecfeedback-list.html?clientnum=row.clientnum" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe616;</i></a> ' +
+						'<a title="反馈记录" href="salecfeedback-list.html?clientnum='+row.clientnum+'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe616;</i></a> ' +
 						/*'<a title="反馈记录" href="javascript:;" onclick="member_detail2(\'反馈记录\',\'sale-clientcontrec-list.html\','+row.clientnum+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe616;</i></a> ' +*/
 						'<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'sale-clientmes-add.html\','+row.clientnum+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> ' +
 						' <a title="删除" href="javascript:;" onclick="member_del(this,'+row.clientnum+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>';
 			}}
 		],
+		<!--href="sale-clientcont-list.html?clientnumn=row.clientnum"-->
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0]}// 制定列不参与排序·
 		],
 		"bProcessing": false, // 是否显示取数据时的那个等待提示
 		"bServerSide": true,//这个用来指明是通过服务端来取数据
 		"sAjaxSource": "saleclientmes/select.do",//这个是请求的地址
+
 		"fnServerData": retrieveData, // 获取数据的处理函数
 		"pageLength": 10,   //默认10
         bPaginate:true,//是否显示（应用）分页器
@@ -257,7 +259,7 @@ function member_detail1(title,url,id,w,h){
 	url=url+"?clientnum="+id;
 	layer_show(title,url,w,h);
 }
-/*联系人信息*/
+/*联系记录信息*/
 function member_detail2(title,url,id,w,h){
 	url=url+"?clientnum="+id;
 	layer_show(title,url,w,h);

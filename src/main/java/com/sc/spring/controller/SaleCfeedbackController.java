@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
 /**
@@ -30,10 +31,11 @@ public class SaleCfeedbackController {
 
     @RequestMapping("/select.do")
     @ResponseBody
-    public ResultNew select(@RequestParam String aoData){
+    public ResultNew select(@RequestParam String aoData, HttpSession session){
         System.out.println("+++++++++++++++++++++++++"+aoData);
         JSONArray jsonarray = JSONArray.parseArray(aoData);
         int sEcho = 1; //当前第几页
+        BigDecimal clientnum=null;
         String datemin = null; //开始日期
         String datemax = null; //结束日期
         String search = null; // 搜索
@@ -41,6 +43,10 @@ public class SaleCfeedbackController {
         int iDisplayLength = 0; // 每页显示的行数
         for (int i = 0; i < jsonarray.size(); i++) {
             JSONObject obj = (JSONObject) jsonarray.get(i);
+            if (obj.get("name").equals("clientnum"))
+            {
+                clientnum = obj.getBigDecimal("value");
+            }
             if (obj.get("name").equals("sEcho"))
             {
                 sEcho = obj.getIntValue("value");
@@ -68,7 +74,9 @@ public class SaleCfeedbackController {
             }
         }
 
-        PageInfo<SaleCfeedback> pageInfo = saleCfeedbackService.selectpage(iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
+        session.setAttribute("clientnum",clientnum);
+        System.out.println("11111111111111111111"+clientnum);
+        PageInfo<SaleCfeedback> pageInfo = saleCfeedbackService.selectpage(clientnum,iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
         ResultNew resultNew=new ResultNew();
         resultNew.setsEcho(sEcho);// 当前第几页
         resultNew.setiTotalDisplayRecords(pageInfo.getTotal());//获取总条数
@@ -80,12 +88,13 @@ public class SaleCfeedbackController {
 
     @RequestMapping("/add.do")
     @ResponseBody
-    public R add(SaleCfeedback saleCfeedback) {
+    public R add(SaleCfeedback saleCfeedback,HttpSession session) {
         System.out.println("----"+saleCfeedback);
         if(saleCfeedback!=null&&saleCfeedback.getBacknum()!=null){
             this.saleCfeedbackService.update(saleCfeedback);
             return new R(200,"修改成功！");
         }else {
+            saleCfeedback.setClientnum((BigDecimal) session.getAttribute("clientnum"));
             this.saleCfeedbackService.add(saleCfeedback);
             return new R(200, "添加成功！");
         }

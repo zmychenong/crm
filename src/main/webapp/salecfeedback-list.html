@@ -29,7 +29,8 @@
 			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-			<input type="text" class="input-text" style="width:250px" placeholder="输入客户编号、类型、原因" id="search" name="search">
+			<input type="hidden" id="clientnum" name="clientnum">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入优先级、类型、原因" id="search" name="search">
 			<button type="button" onclick="search1()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		</div>
 	</form>
@@ -75,11 +76,26 @@
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+function RequestParameter(){
+	var url = window.location.search; //获取url中"?"符后的字串
+	var theRequest = new Object();
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1);
+		var strs = str.split("&");
+		for(var i = 0; i < strs.length; i ++) {
+			theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+		}
+	}
+	return theRequest}
+
+
 var jsonCondition=null;
 $(function(){
 	var startTime=$("#datemin").val();
 	var endTime=$("#datemax").val();
 	var search=$("#search").val();
+	var clientnum1=RequestParameter()["clientnum"];
+	$("#clientnum").val(clientnum1);
 
 	$('.table-sort').dataTable({
 		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -118,6 +134,11 @@ $(function(){
 	});
 	var page={"iDisplayStart":"0","iDisplayLength":"0"};
 	function retrieveData( sAjaxSource,aoData, fnCallback) {
+
+		var page1={"name":"","value":""};
+		page1.name="clientnum";
+		page1.value=$("#clientnum").val();         //1111111111111
+		aoData.push(page1)
 
 		if (jsonCondition!=null) {
 			//将搜索条件和page拼接到一起

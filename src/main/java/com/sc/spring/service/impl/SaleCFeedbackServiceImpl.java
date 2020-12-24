@@ -31,11 +31,9 @@ public class SaleCFeedbackServiceImpl implements SaleCfeedbackService {
 
 
     @Override
-    public PageInfo<SaleCfeedback> selectpage(int pageNum, int pageSize, SaleCfeedback saleCfeedback,String datemin,String datemax,String search) {
+    public PageInfo<SaleCfeedback> selectpage(BigDecimal clientnum, int pageNum, int pageSize, SaleCfeedback saleCfeedback,String datemin,String datemax,String search) {
         PageHelper.startPage(pageNum,pageSize);
         SaleCfeedbackExample example=new SaleCfeedbackExample();
-
-
         SaleCfeedbackExample.Criteria criteria = example.createCriteria();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         if(datemin!=null&&!datemin.equals("")){
@@ -66,6 +64,8 @@ public class SaleCFeedbackServiceImpl implements SaleCfeedbackService {
             SaleCfeedbackExample.Criteria criteria3 = example.createCriteria();
             criteria3.andRecordfirstEqualTo(search);
             example.or(criteria3);
+        }else {
+            criteria.andClientnumEqualTo(clientnum);
         }
 
         example.setOrderByClause("BACKNUM DESC");

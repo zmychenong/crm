@@ -24,25 +24,26 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加用户 - H-ui.admin v3.1</title>
+<title>添加客户联系人 - H-ui.admin v3.1</title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <article class="page-container">
 	<form action=""  method="post" class="form form-horizontal" id="form-member-add">
-
-        <div class="row cl">
+        <!--<div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>客户编号：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="hidden" class="input-text" value="" placeholder="" id="contnum" name="contnum">
+
                 <input type="text" class="input-text" value="" placeholder="" id="clientnum" name="clientnum">
             </div>
-        </div>
+        </div>-->
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联系人姓名：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="" id="contname" name="contname">
+                <input type="hidden" class="input-text" value="" placeholder="" id="contnum" name="contnum">
+                <input type="hidden" class="input-text" value="" placeholder="" id="clientnum" name="clientnum">
             </div>
         </div>
         <div class="row cl">
@@ -127,16 +128,16 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 function RequestParameter(){
-	var url = window.location.search; //获取url中"?"符后的字串
-	var theRequest = new Object();
-	if (url.indexOf("?") != -1) {
-		var str = url.substr(1);
-		var strs = str.split("&");
-		for(var i = 0; i < strs.length; i ++) {
-			theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
-		}
-	}
-	return theRequest}
+    var url = window.location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest}
 $(function(){
 
 	//根据传递过来的主键编号获取对象，显示原来的信息
@@ -151,8 +152,6 @@ $(function(){
 			dataType:"json",
 			success: function(obj){
 				console.log(obj);
-                /*$("#contnum").val(obj.contnum);*/
-                $("#clientnum").val(obj.clientnum);
                 $("#contname").val(obj.contname);
                 $("#english").val(obj.english);
                 $("#botany").val(obj.botany);
@@ -164,6 +163,7 @@ $(function(){
                 $("#beizhuxx").val(obj.beizhuxx);
                 $("#sysnum").val(obj.sysnum);
 				$("#lasttime").val(obj.lasttime);
+                $("#clientnum").val(obj.clientnum);
 			}
 		});
 

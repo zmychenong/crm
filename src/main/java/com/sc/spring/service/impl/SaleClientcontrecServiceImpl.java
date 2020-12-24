@@ -28,7 +28,7 @@ public class SaleClientcontrecServiceImpl implements SaleClientcontrecService {
     SaleClientcontrecMapper saleClientcontrecMapper;
 
     @Override
-    public PageInfo<SaleClientcontrec> selectpage(int pageNum, int pageSize, SaleClientcontrec saleClientcontrec,String datemin,String datemax,String search) {
+    public PageInfo<SaleClientcontrec> selectpage(BigDecimal clientnum, int pageNum, int pageSize, SaleClientcontrec saleClientcontrec,String datemin,String datemax,String search) {
         PageHelper.startPage(pageNum,pageSize);
         SaleClientcontrecExample example=new SaleClientcontrecExample();
 
@@ -53,6 +53,8 @@ public class SaleClientcontrecServiceImpl implements SaleClientcontrecService {
 
             criteria1.andDetailsLike("%"+search+"%");
             example.or(criteria1);
+        }else {
+            criteria.andClientnumEqualTo(clientnum);
         }
 
         example.setOrderByClause("RECNUM DESC");
