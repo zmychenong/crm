@@ -1,25 +1,19 @@
 package com.sc.spring.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.github.pagehelper.PageInfo;
 import com.sc.spring.entity.R;
-import com.sc.spring.entity.Result;
 import com.sc.spring.entity.ResultNew;
-import com.sc.spring.entity.SaleClientloss;
-import com.sc.spring.service.SaleClientlossService;
-import com.sun.deploy.panel.ITreeNode;
+import com.sc.spring.entity.SaleClientmes;
+import com.sc.spring.service.SaleClientmesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
-import java.util.SortedSet;
 
 /**
  * 类名：SaleClientlossController
@@ -29,11 +23,11 @@ import java.util.SortedSet;
  * 版本：V1.0
  */
 @Controller         /*控制器注解*/
-@RequestMapping("/saleclientloss")   /*控制器类的请求映射url*/
-public class SaleClientlossController {
+@RequestMapping("/saleclientmes")   /*控制器类的请求映射url*/
+public class SaleClientmesController {
 
     @Autowired
-    SaleClientlossService saleClientlossService;
+    SaleClientmesService saleClientmesService;
 
     @RequestMapping("/select.do")
     @ResponseBody
@@ -79,8 +73,7 @@ public class SaleClientlossController {
             }
         }
 
-        PageInfo<SaleClientloss> pageInfo = saleClientlossService.selectpage(iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
-
+        PageInfo<SaleClientmes> pageInfo = saleClientmesService.selectpage(iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
 
         ResultNew resultNew=new ResultNew();
         resultNew.setsEcho(sEcho);// 当前第几页
@@ -94,30 +87,30 @@ public class SaleClientlossController {
 
     @RequestMapping("/add.do")
     @ResponseBody
-    public R add(SaleClientloss saleClientloss) {
-        System.out.println("----"+saleClientloss);
-        if(saleClientloss!=null&&saleClientloss.getLossnum()!=null){
-            this.saleClientlossService.update(saleClientloss);
+    public R add(SaleClientmes saleClientmes) {
+        System.out.println("----"+saleClientmes);
+        if(saleClientmes!=null&&saleClientmes.getClientnum()!=null){
+            this.saleClientmesService.update(saleClientmes);
             return new R(200,"修改成功！");
         }else {
-            this.saleClientlossService.add(saleClientloss);
+            this.saleClientmesService.add(saleClientmes);
             return new R(200, "添加成功！");
         }
     }
 
     @RequestMapping("/del.do")
     @ResponseBody
-    public R del(BigDecimal lossnum) {
-        System.out.println("--=======--"+lossnum);
-        this.saleClientlossService.del(lossnum);
+    public R del(BigDecimal clientnum) {
+        System.out.println("--=======--"+clientnum);
+        this.saleClientmesService.del(clientnum);
         return new R(200,"删除成功！");
     }
 
     @RequestMapping("/get.do")
     @ResponseBody
-    public SaleClientloss get(BigDecimal lossnum) {
-        System.out.println("--=======--"+lossnum);
-        return this.saleClientlossService.get(lossnum);
+    public SaleClientmes get(BigDecimal clientnum) {
+        System.out.println("--=======--"+clientnum);
+        return this.saleClientmesService.get(clientnum);
     }
 
     @RequestMapping("/delAll.do")
@@ -127,8 +120,8 @@ public class SaleClientlossController {
             String[] s = ids.split(",");
             for (int i = 0; i <s.length ; i++) {
                 System.out.println("--=======--"+s[i]);
-                BigDecimal lossnum=new BigDecimal(s[i]);
-                this.saleClientlossService.del(lossnum);
+                BigDecimal clientnum=new BigDecimal(s[i]);
+                this.saleClientmesService.del(clientnum);
             }
         }
 

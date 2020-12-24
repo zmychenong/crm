@@ -1,26 +1,20 @@
 package com.sc.spring.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.github.pagehelper.PageInfo;
 import com.sc.spring.entity.R;
 import com.sc.spring.entity.Result;
 import com.sc.spring.entity.ResultNew;
-import com.sc.spring.entity.SaleClientloss;
-import com.sc.spring.service.SaleClientlossService;
-import com.sun.deploy.panel.ITreeNode;
+import com.sc.spring.entity.SaleClientcont;
+import com.sc.spring.service.SaleClientcontService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
-import java.util.SortedSet;
-
 /**
  * 类名：SaleClientlossController
  * 描述：一段话描述类的信息
@@ -29,11 +23,11 @@ import java.util.SortedSet;
  * 版本：V1.0
  */
 @Controller         /*控制器注解*/
-@RequestMapping("/saleclientloss")   /*控制器类的请求映射url*/
-public class SaleClientlossController {
+@RequestMapping("/saleclientcont")   /*控制器类的请求映射url*/
+public class SaleClientcontController {
 
     @Autowired
-    SaleClientlossService saleClientlossService;
+    SaleClientcontService saleClientcontService;
 
     @RequestMapping("/select.do")
     @ResponseBody
@@ -42,7 +36,7 @@ public class SaleClientlossController {
 
         JSONArray jsonarray = JSONArray.parseArray(aoData);
         int sEcho = 1; //当前第几页
-
+        BigDecimal clientnum=null;
         String datemin = null; //开始日期
         String datemax = null; //结束日期
         String search = null; // 搜索
@@ -52,6 +46,7 @@ public class SaleClientlossController {
 
         for (int i = 0; i < jsonarray.size(); i++) {
             JSONObject obj = (JSONObject) jsonarray.get(i);
+            clientnum = obj.getBigDecimal("clientnum");
             if (obj.get("name").equals("sEcho"))
             {
                 sEcho = obj.getIntValue("value");
@@ -79,45 +74,44 @@ public class SaleClientlossController {
             }
         }
 
-        PageInfo<SaleClientloss> pageInfo = saleClientlossService.selectpage(iDisplayStart/iDisplayLength+1, iDisplayLength, null,datemin,datemax,search);
 
+        PageInfo<SaleClientcont> pageInfo = saleClientcontService.selectpage(clientnum, iDisplayStart, iDisplayLength, null,datemin,datemax,search);
 
         ResultNew resultNew=new ResultNew();
         resultNew.setsEcho(sEcho);// 当前第几页
         resultNew.setiTotalDisplayRecords(pageInfo.getTotal());//获取总条数
         resultNew.setiTotalRecords(pageInfo.getList().size());//每页显示的行数
         resultNew.setAaData(pageInfo.getList());//集合数据
-
         return resultNew;
     }
 
 
     @RequestMapping("/add.do")
     @ResponseBody
-    public R add(SaleClientloss saleClientloss) {
-        System.out.println("----"+saleClientloss);
-        if(saleClientloss!=null&&saleClientloss.getLossnum()!=null){
-            this.saleClientlossService.update(saleClientloss);
+    public R add(SaleClientcont saleClientcont) {
+        System.out.println("----"+saleClientcont);
+        if(saleClientcont!=null&&saleClientcont.getContnum()!=null){
+            this.saleClientcontService.update(saleClientcont);
             return new R(200,"修改成功！");
         }else {
-            this.saleClientlossService.add(saleClientloss);
+            this.saleClientcontService.add(saleClientcont);
             return new R(200, "添加成功！");
         }
     }
 
     @RequestMapping("/del.do")
     @ResponseBody
-    public R del(BigDecimal lossnum) {
-        System.out.println("--=======--"+lossnum);
-        this.saleClientlossService.del(lossnum);
+    public R del(BigDecimal contnum) {
+        System.out.println("--=======--"+contnum);
+        this.saleClientcontService.del(contnum);
         return new R(200,"删除成功！");
     }
 
     @RequestMapping("/get.do")
     @ResponseBody
-    public SaleClientloss get(BigDecimal lossnum) {
-        System.out.println("--=======--"+lossnum);
-        return this.saleClientlossService.get(lossnum);
+    public SaleClientcont get(BigDecimal contnum) {
+        System.out.println("--=======--"+contnum);
+        return this.saleClientcontService.get(contnum);
     }
 
     @RequestMapping("/delAll.do")
@@ -127,8 +121,8 @@ public class SaleClientlossController {
             String[] s = ids.split(",");
             for (int i = 0; i <s.length ; i++) {
                 System.out.println("--=======--"+s[i]);
-                BigDecimal lossnum=new BigDecimal(s[i]);
-                this.saleClientlossService.del(lossnum);
+                BigDecimal contnum=new BigDecimal(s[i]);
+                this.saleClientcontService.del(contnum);
             }
         }
 

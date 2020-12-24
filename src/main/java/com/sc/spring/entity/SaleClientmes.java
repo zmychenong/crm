@@ -1,5 +1,6 @@
 package com.sc.spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Date;
 public class SaleClientmes implements Serializable {
     private BigDecimal clientnum;
 
-    private String clientname;
+    private String clientname;      //1
 
     private String clientattr;
 
@@ -23,7 +24,7 @@ public class SaleClientmes implements Serializable {
 
     private String leader;
 
-    private String owner;
+    private String owner;       //2
 
     private BigDecimal employesnum;
 
@@ -43,7 +44,7 @@ public class SaleClientmes implements Serializable {
 
     private String fax;
 
-    private String bank;
+    private String bank;    //3
 
     private BigDecimal bankaccount;
 
@@ -54,7 +55,7 @@ public class SaleClientmes implements Serializable {
 
     private BigDecimal sicnum;
 
-    private String payway;
+    private String payway;      //4
 
     private String effective;
 
@@ -212,7 +213,7 @@ public class SaleClientmes implements Serializable {
     public void setBankaccount(BigDecimal bankaccount) {
         this.bankaccount = bankaccount;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getNextconttime() {
         return nextconttime;
     }
@@ -276,7 +277,7 @@ public class SaleClientmes implements Serializable {
     public void setSysnum(BigDecimal sysnum) {
         this.sysnum = sysnum;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getLasttime() {
         return lasttime;
     }
