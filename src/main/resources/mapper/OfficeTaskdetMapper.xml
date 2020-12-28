@@ -244,7 +244,6 @@
   <!--<result column="COMPANY_NUMBER" jdbcType="DECIMAL" property="companyNumber"></result>-->
   <!--<result column="LAST_MODIFICATION_TIME" jdbcType="TIMESTAMP" property="lastModificationTime"></result>-->
 <!--</resultMap>-->
-<!---->
 
 
 </mapper>
