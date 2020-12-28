@@ -235,4 +235,19 @@
       LAST_MODIFICATION_TIME = #{lastModificationTime,jdbcType=TIMESTAMP}
     where OFFICE_ID = #{officeId,jdbcType=DECIMAL}
   </update>
+<resultMap id="officeTaskdetMap" type="com.sc.spring.entity.OfficeTaskdet">
+  <id column="OFFICE_ID" jdbcType="DECIMAL" property="officeId"></id>
+  <result column="TASK_ID" jdbcType="DECIMAL" property="taskId"></result>
+  <result column="ACCEPT_USER_NUMBER" jdbcType="DECIMAL" property="acceptUserNumber"></result>
+  <result column="IT_IS_COMPELETED" jdbcType="VARCHER" property="itIsCompeleted"></result>
+  <result column="STATE" jdbcType="VARCHER" property="state"></result>
+  <result column="COMPANY_NUMBER" jdbcType="DECIMAL" property="companyNumber"></result>
+  <result column="LAST_MODIFICATION_TIME" jdbcType="TIMESTAMP" property="lastModificationTime"></result>
+
+  <association property=""
+    
+</resultMap>
+
+
+
 </mapper>
