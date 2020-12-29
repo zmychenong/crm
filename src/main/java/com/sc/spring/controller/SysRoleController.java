@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.print.attribute.standard.RequestingUserName;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -86,12 +88,19 @@ public class SysRoleController {
 
     @RequestMapping("/add.do")
     @ResponseBody
-    public R add(SysRole sysRole, HttpSession session) {
+    public R add(SysRole sysRole, HttpSession session,SysUseraccount sysUseraccount) {
         System.out.println("----"+sysRole);
         if(sysRole!=null&&sysRole.getRoleId()!=null){
+            SysUseraccount nowuesr=(SysUseraccount)session.getAttribute("nowuser");
+            sysRole.setOperator(nowuesr.getUserName());
+            System.out.println(nowuesr.getUserName());
             this.sysRoleService.update(sysRole);
             return new R(200,"修改成功！");
         }else {
+
+            SysUseraccount nowuesr=(SysUseraccount)session.getAttribute("nowuser");
+            sysRole.setOperator(nowuesr.getUserName());
+            System.out.println(nowuesr.getUserName());
             this.sysRoleService.add(sysRole);
             return new R(200, "添加成功！");
         }
