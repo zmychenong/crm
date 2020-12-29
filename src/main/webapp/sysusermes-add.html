@@ -115,10 +115,10 @@
                     <!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerSex" name="workerSex"></td>-->
 <td><input id="workerSex1" type="radio" checked="checked" name="workerSex" value="男" />男<input id="workerSex2" type="radio"  name="workerSex" value="女"/>女</td>
                 </tr>
-                <tr>
-                    <th class="text-r">照片：</th>
-                    <td><input type="file" class="" name="workerPhoto" multiple></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<th class="text-r">照片：</th>-->
+                    <!--<td><input type="file" class="" name="workerPhoto" multiple></td>-->
+                <!--</tr>-->
                 <tr>
                     <th class="text-r"><span class="c-red">*</span> 身份证号：</th>
                     <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerIdcard" name="workerIdcard"></td>
@@ -129,7 +129,15 @@
                 </tr>
                 <tr>
                     <th class="text-r">学历：</th>
-                    <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerEdu" name="workerEdu"></td>
+                    <td> <select class="select" size="1" name="workerEdu" id="workerEdu" class="input-text Wdate" style="width:300px"class="input-text Wdate" style="width:300px">
+                        <option value="" selected>请选择学历</option>
+                        <option value="高中">高中</option>
+                        <option value="大专">大专</option>
+                        <option value="本科">本科</option>
+                        <option value="研究生">研究生</option>
+                    </select></td>
+
+                    <!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerEdu" name="workerEdu"></td>-->
                 </tr>
                 <tr>
                     <th class="text-r">毕业学校：</th>
@@ -144,17 +152,24 @@
                     <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="user-email" name="user-email"></td>
                 </tr>
 
-                <tr>
-                    <th class="text-r">职务ID：</th>
-                    <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="onlineContact" name="onlineContact"></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<th class="text-r">职务ID：</th>-->
+                    <!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="onlineContact" name="onlineContact"></td>-->
+                <!--</tr>-->
                 <!--<tr>-->
                     <!--<th class="text-r">职务ID：</th>-->
                     <!--<td><textarea class="input-text" name="onlineContact" id="onlineContact" style="height:100px;width:300px;"></textarea></td>-->
                 <!--</tr>-->
                 <tr>
-                    <th class="text-r">员工状态：</th>
-                    <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="postId" name="postId"></td>
+                    <th class="text-r">审核状态：</th>
+                    <td> <select class="select" size="2" name="onlineContact" id="onlineContact" class="input-text Wdate" style="width:300px"class="input-text Wdate" style="width:300px">
+                        <option value="未审核" selected>未审核</option>
+                        <option value="已审核">已审核</option>
+                        <option value="未审核">未审核</option>
+
+                    </select></td>
+
+                    <!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="postId" name="postId"></td>-->
                 </tr>
                 <tr>
                     <th class="text-r">备注：</th>
@@ -264,7 +279,18 @@ $(function(){
         rules:{
             workerName:{
                 required:true,
-            }
+            },
+            workerIdcard:{
+                digits:true,
+                minlength:18,
+                maxlength:18
+            },
+            phone:{
+        required:true,
+            minlength:11,
+            maxlength:11
+
+    }
             /*username:{
                 required:true,
                 minlength:2,

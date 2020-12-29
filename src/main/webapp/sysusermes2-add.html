@@ -113,10 +113,10 @@
 
                     <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerSex" name="workerSex"></td>
                 </tr>
-                <tr>
-                    <th class="text-r">照片：</th>
-                    <td><input type="file" class="" name="workerPhoto" multiple></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<th class="text-r">照片：</th>-->
+                    <!--<td><input type="file" class="" name="workerPhoto" multiple></td>-->
+                <!--</tr>-->
                 <tr>
                     <th class="text-r"><span class="c-red">*</span> 身份证号：</th>
                     <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerIdcard" name="workerIdcard"></td>
@@ -127,7 +127,15 @@
                 </tr>
                 <tr>
                     <th class="text-r">学历：</th>
-                    <td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerEdu" name="workerEdu"></td>
+                    <td> <select class="select" size="1" name="workerEdu" id="workerEdu" class="input-text Wdate" style="width:300px"class="input-text Wdate" style="width:300px">
+                        <option value="" selected>请选择学历</option>
+                        <option value="高中">高中</option>
+                        <option value="大专">大专</option>
+                        <option value="本科">本科</option>
+                        <option value="研究生">研究生</option>
+                    </select></td>
+
+                    <!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="workerEdu" name="workerEdu"></td>-->
                 </tr>
                 <tr>
                     <th class="text-r">毕业学校：</th>

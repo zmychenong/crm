@@ -75,13 +75,19 @@
 					<!--&lt;!&ndash;<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>&ndash;&gt;-->
 					<!--&lt;!&ndash;</div>&ndash;&gt;-->
 				<!--</tr>-->
-				<!--<tr>-->
-					<!--<th class="text-r">开户银行：</th>-->
-					<!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="sysCompanyYh" name="sysCompanyYh"></td>-->
-				<!--</tr>-->
+				<tr>
+					<th class="text-r">开户银行：</th>
+					<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="sysCompanyYh" name="sysCompanyYh"></td>
+				</tr>
 				<tr>
 					<th class="text-r">是否有效：</th>
-					<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="sysCompanyYhzh" name="sysCompanyYhzh"></td>
+					<td> <select class="select" size="2" name="sysCompanyYxw" id="sysCompanyYxw" class="input-text Wdate" style="width:300px"class="input-text Wdate" style="width:300px">
+						<option value="无效" selected>无效</option>
+						<option value="有效">有效</option>
+
+
+					</select></td>
+					<!--<td><input type="text" style="width:300px" class="input-text" value="" placeholder="" id="sysCompanyYhzh" name="sysCompanyYhzh"></td>-->
 				</tr>
 
 				<tr>
@@ -166,26 +172,36 @@ $(function(){
 		rules:{
 			sysCompanyName:{
 				required:true,
+			},
+			sysCompanyPhone:{
+				required:true,
+				minlength:11,
+				maxlength:11
+			},
+			sysCompanyYphone:{
+				required:true,
+				minlength:11,
+				maxlength:11
 			}
-			/*username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
-			sex:{
-				required:true,
-			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
-			},*/
+				/*username:{
+                    required:true,
+                    minlength:2,
+                    maxlength:16
+                },
+                sex:{
+                    required:true,
+                },
+                mobile:{
+                    required:true,
+                    isMobile:true,
+                },
+                email:{
+                    required:true,
+                    email:true,
+                },
+                uploadfile:{
+                    required:true,
+                },*/
 			
 		},
 		onkeyup:false,
