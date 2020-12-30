@@ -10,6 +10,21 @@ import java.util.Date;
  * @author 
  */
 public class OfficeTaskdet implements Serializable {
+
+    private  OfficeTasktest officeTasktest;//配置任务的发布详情
+
+    public OfficeTasktest getOfficeTasktest() {
+        return officeTasktest;
+    }
+
+    public void setOfficeTasktest(OfficeTasktest officeTasktest) {
+        this.officeTasktest = officeTasktest;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     private Long officeId;
 
     private String taskId;
